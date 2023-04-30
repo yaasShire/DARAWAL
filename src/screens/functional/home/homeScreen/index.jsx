@@ -28,11 +28,10 @@ const Home = ({ navigation }) => {
                         <Dialog.Actions>
                             <Button onPress={() => {
                                 hideDialog()
-
                             }}>Cancel</Button>
                             <Button onPress={() => {
                                 hideDialog()
-                                navigation.navigate('shopLocation')
+                                alertTitle == 'Accept' ? navigation.navigate('shopLocation') : ""
                             }}>Ok</Button>
                         </Dialog.Actions>
                     </Dialog>
@@ -52,7 +51,7 @@ const Home = ({ navigation }) => {
             <View style={styles.statusCardWrapper}>
                 {
                     newOrderExist ?
-                        <OrderCard data={orders[0]} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
+                        <OrderCard navigation={navigation} data={orders[0]} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
                         : <StatusCard />
                 }
 

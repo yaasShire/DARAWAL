@@ -5,7 +5,7 @@ import welcome1 from '../../../assets/images/welcome1.png'
 import welcome2 from '../../../assets/images/welcome2.png'
 import welcome3 from '../../../assets/images/welcome3.png'
 import styles from './style'
-const OnBoarding = ({ navigation }) => {
+const OnBoardingIntro = ({ navigation }) => {
     return (
         <Onboarding
             onDone={() => navigation.navigate("bottomTabs")}
@@ -34,4 +34,4 @@ const OnBoarding = ({ navigation }) => {
     )
 }
 
-export default OnBoarding
+export default OnBoardingIntro

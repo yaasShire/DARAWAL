@@ -180,7 +180,8 @@ export default StyleSheet.create({
         borderRadius: 5,
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "row"
+        flexDirection: "row",
+        alignSelf: "center"
     },
     completedText: {
         fontSize: fontSizes.secondary,

@@ -1,12 +1,9 @@
 import { StyleSheet } from "react-native";
-import { colors, borderColor, fontSizes, fontWeights } from "../../../../constants/globalStyles";
+import { colors, borderColor, fontSizes, fontWeights } from "../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.primary,
-    },
-    miniContainer: {
-        flex: 1,
         padding: 10
     },
     image: {
@@ -77,18 +74,5 @@ export default StyleSheet.create({
     },
     actionsWrapper: {
         paddingVertical: "1%"
-    },
-    logOutSectionWrapper: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: "4%",
-        paddingVertical: "3%",
-        padding: "2%",
-        borderWidth: 1,
-        borderColor: colors.gray,
-        borderRadius: 5
-    },
-    logOutText: {
-        marginLeft: 6
     }
 })

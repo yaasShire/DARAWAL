@@ -6,7 +6,7 @@ import { Divider } from 'react-native-paper'
 import { colors } from '../../../constants/globalStyles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTitle = () => { }, data, status = "" }) => {
+const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTitle = () => { }, data, status = "", navigation = () => { } }) => {
     return (
         <View style={styles.container}>
             <View style={styles.upperContent}>
@@ -105,32 +105,22 @@ const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTit
                 {
                     data.status == "On the way" && (
                         <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
-
+                            navigation.navigate("shopLocation")
                         }}>
-                            <Text style={styles.buttonText(colors.primary)}>{status == 'On the way' && 'Track order'}</Text>
+                            <Text style={styles.buttonText(colors.primary)}>{status == 'On the way' && 'Navigate Map'}</Text>
                         </TouchableOpacity>
                     )
                 }
                 {
                     data.status == "Pending" && (
                         <TouchableOpacity style={styles.button("red")} onPress={() => {
-                            setVisible(true)
-                            setAlertTitle("Pick order from the shop?")
+                            navigation.navigate('shopLocation')
                         }}>
                             <Text style={styles.buttonText(colors.primary)}>{status == 'Pending' && 'Shop location'}</Text>
                         </TouchableOpacity>
                     )
                 }
-                {
-                    data.status == "Pending" && (
-                        <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
-                            setVisible(true)
-                            setAlertTitle("Pick order from the shop?")
-                        }}>
-                            <Text style={styles.buttonText(colors.primary)}>{status == 'Pending' && 'Pick up'}</Text>
-                        </TouchableOpacity>
-                    )
-                }
+
 
             </View>
         </View>

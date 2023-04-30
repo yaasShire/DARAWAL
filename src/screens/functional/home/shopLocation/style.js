@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { colors, fontSizes, fontWeights } from "../../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
@@ -86,7 +86,7 @@ export default StyleSheet.create({
     },
     startButtonWrapper: {
         position: "absolute",
-        top: 80,
+        top: Platform.OS == 'ios' ? 170 : 80,
         right: 10,
         // backgroundColor: colors.primary,
         borderWidth: 3,

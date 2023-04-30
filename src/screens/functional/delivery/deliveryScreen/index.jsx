@@ -77,30 +77,13 @@ const Delivery = ({ navigation }) => {
             <FlatList
                 style={styles.ordersWrapper}
                 data={targetOrders}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                    <OrderCard data={item} status={item.status} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
+                    <OrderCard navigation={navigation} data={item} status={item.status} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
                 )}
                 contentContainerStyle={{ rowGap: 15, alignItems: "center" }}
             />
-            <View>
-                <RBSheet
-                    ref={ref => {
-                        this.RBSheet = ref;
-                    }}
-                    height={300}
-                    openDuration={250}
-                    customStyles={{
-                        container: {
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }
-                    }}
-                >
-                    <View>
-                        <Text>Delivery</Text>
-                    </View>
-                </RBSheet>
-            </View>
+
 
         </SafeAreaView>
     )

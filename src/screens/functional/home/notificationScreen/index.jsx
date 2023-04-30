@@ -35,6 +35,7 @@ const Notification = ({ navigation }) => {
                             <Button onPress={() => {
                                 hideDialog()
                                 setnewOrderExist(false)
+                                alertTitle == 'Accept' ? navigation.navigate('shopLocation') : ""
                             }}>Ok</Button>
                         </Dialog.Actions>
                     </Dialog>

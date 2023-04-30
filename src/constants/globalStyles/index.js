@@ -15,8 +15,8 @@ const borderColor = {
 }
 
 const fontSizes = {
-    primary: 13,
-    secondary: 15,
+    primary: 15,
+    secondary: 18,
     tertiary: 25
 }
 
