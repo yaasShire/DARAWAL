@@ -1,6 +1,6 @@
 import { View, Text, StatusBar, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style'
 import Header from '../../../../components/molecules/header';
 import { Button, Switch } from 'react-native-paper';
@@ -9,6 +9,8 @@ import StatusCard from '../../../../components/molecules/statusCard';
 import OrderCard from '../../../../components/molecules/orderCard';
 import { Dialog, Portal } from 'react-native-paper';
 import { orders } from '../../../../data';
+import SuccessAnimation from '../../../../assets/animations/success';
+import CancelAnimation from '../../../../assets/animations/cancel';
 
 const Home = ({ navigation }) => {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -16,7 +18,14 @@ const Home = ({ navigation }) => {
     const [visible, setVisible] = React.useState(false);
     const [alertTitle, setAlertTitle] = useState('')
     const [newOrderExist, setnewOrderExist] = useState(true)
+    const [orderData, setOrderData] = useState({});
+    const [successAnimation, setSuccessAnimation] = useState(false)
+    const [cancelAnimation, setCancelAnimation] = useState(false)
     const hideDialog = () => setVisible(false);
+    useEffect(() => {
+        setSuccessAnimation(false)
+        setCancelAnimation(false)
+    }, [])
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle={Platform.OS == 'android' ? 'dark-content' : 'light-content'} />
@@ -27,11 +36,21 @@ const Home = ({ navigation }) => {
 
                         <Dialog.Actions>
                             <Button onPress={() => {
+
                                 hideDialog()
+
                             }}>Cancel</Button>
                             <Button onPress={() => {
                                 hideDialog()
-                                alertTitle == 'Accept' ? navigation.navigate('shopLocation') : ""
+                                alertTitle == 'Accept' ? setSuccessAnimation(true) : alertTitle == 'Reject' ? setCancelAnimation(true) : ""
+                                setTimeout(() => {
+                                    setCancelAnimation(false)
+                                }, 2000)
+                                setTimeout(() => {
+                                    setSuccessAnimation(false)
+                                    alertTitle == 'Accept' ? navigation.navigate('shopLocation', { data: orderData }) : ""
+                                }, 1800)
+                                // setnewOrderExist(false)
                             }}>Ok</Button>
                         </Dialog.Actions>
                     </Dialog>
@@ -51,12 +70,22 @@ const Home = ({ navigation }) => {
             <View style={styles.statusCardWrapper}>
                 {
                     newOrderExist ?
-                        <OrderCard navigation={navigation} data={orders[0]} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
+                        <OrderCard setOrderData={setOrderData} navigation={navigation} data={orders[0]} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
                         : <StatusCard />
                 }
-
-
             </View>
+            {successAnimation && (
+                <SuccessAnimation />
+
+            )}
+            {
+                cancelAnimation && (
+
+                    <CancelAnimation />
+                )
+            }
+
+
 
         </SafeAreaView>
     )

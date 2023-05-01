@@ -1,11 +1,14 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './style'
-const CustomButton = ({ color, label }) => {
+const CustomButton = ({ color, label, setShowGoAnimation, bottomSheet }) => {
     return (
-        <View style={styles.buttonWrapper(color)}>
+        <TouchableOpacity style={styles.buttonWrapper(color)} onPress={() => {
+            label == 'Start' && setShowGoAnimation(true)
+            label == 'Start' && bottomSheet.current.close()
+        }}>
             <Text style={styles.buttonText}>{label}</Text>
-        </View>
+        </TouchableOpacity>
     )
 }
 export default CustomButton

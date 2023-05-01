@@ -6,13 +6,13 @@ import { Divider } from 'react-native-paper'
 import { colors } from '../../../constants/globalStyles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTitle = () => { }, data, status = "", navigation = () => { } }) => {
+const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setOrderData = () => { }, setAlertTitle = () => { }, data, status = "", navigation = () => { } }) => {
     return (
         <View style={styles.container}>
             <View style={styles.upperContent}>
                 <View style={styles.imageNameWrapper}>
                     <View style={styles.imageWrapper}>
-                        <Image source={shopProfile} style={styles.image} />
+                        <Image source={data.image} style={styles.image} />
                     </View>
                     <Text style={styles.userName} numberOfLines={2}>{data.shopName}</Text>
                 </View>
@@ -89,6 +89,7 @@ const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTit
                         <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
                             setVisible(true)
                             setAlertTitle("Accept")
+                            setOrderData(data)
                         }}>
                             <Text style={styles.buttonText(colors.primary)}>Accepted</Text>
                         </TouchableOpacity>
@@ -105,7 +106,7 @@ const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTit
                 {
                     data.status == "On the way" && (
                         <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
-                            navigation.navigate("shopLocation")
+                            navigation.navigate("shopLocation", { data })
                         }}>
                             <Text style={styles.buttonText(colors.primary)}>{status == 'On the way' && 'Navigate Map'}</Text>
                         </TouchableOpacity>
@@ -114,7 +115,7 @@ const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setAlertTit
                 {
                     data.status == "Pending" && (
                         <TouchableOpacity style={styles.button("red")} onPress={() => {
-                            navigation.navigate('shopLocation')
+                            navigation.navigate('shopLocation', { data })
                         }}>
                             <Text style={styles.buttonText(colors.primary)}>{status == 'Pending' && 'Shop location'}</Text>
                         </TouchableOpacity>

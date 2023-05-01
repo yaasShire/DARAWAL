@@ -9,6 +9,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import HistoryCard from '../../../../components/molecules/historyCard'
 import { historyOrders } from '../../../../data'
 import { FlatList } from 'react-native-gesture-handler'
+import HistorySkeleton from './skeleton'
 const History = () => {
     const tempDate = new Date()
     const [date, setDate] = useState(new Date())

@@ -20,6 +20,20 @@ export const orders = [
     },
     {
         id: 2,
+        shopName: "Hilal market",
+        image: shop3,
+        fee: 20,
+        pickupPoint: "Yaqshid, km3",
+        dropPoint: "Hodan, 5th street",
+        estimatedTime: "1h 50m",
+        packages: 4,
+        shopTelephone: '0618643678',
+        distance: 4,
+        status: "New"
+
+    },
+    {
+        id: 3,
         shopName: "JUBA market",
         image: shop2,
         fee: 15,
@@ -34,7 +48,7 @@ export const orders = [
 
     },
     {
-        id: 3,
+        id: 4,
         shopName: "ENZO market",
         image: shop3,
         fee: 10,
@@ -48,7 +62,7 @@ export const orders = [
 
     },
     {
-        id: 4,
+        id: 5,
         shopName: "Shakatay market",
         image: shop4,
         fee: 30,
@@ -62,7 +76,7 @@ export const orders = [
 
     },
     {
-        id: 5,
+        id: 6,
         shopName: "ALLA KAAB",
         image: shop5,
         fee: 22,

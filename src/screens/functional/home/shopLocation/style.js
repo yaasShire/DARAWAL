@@ -23,9 +23,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         padding: "2%",
         height: 76,
-        alignItems: "center"
-
-        // width: "100%"
+        alignItems: "center",
     },
     locationIconWrapper: {
         backgroundColor: colors.gray,
@@ -37,7 +35,9 @@ export default StyleSheet.create({
         marginRight: "3%"
     },
     locationIconDistanceWrapper: {
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: "2%",
     },
     distance: {
         fontWeight: fontWeights.secondary,
