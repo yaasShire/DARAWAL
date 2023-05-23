@@ -65,7 +65,9 @@ const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setOrderDat
                             <View style={styles.infoDivider} />
                             <View style={styles.callIconAndText}>
                                 <Text style={styles.callText}>Call:</Text>
-                                <FontAwesome name='phone' size={20} color={"green"} />
+                                <TouchableOpacity style={styles.phoneWrapper}>
+                                    <FontAwesome name='phone' size={20} color={"#fff"} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
@@ -114,7 +116,7 @@ const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setOrderDat
                 }
                 {
                     data.status == "Pending" && (
-                        <TouchableOpacity style={styles.button("red")} onPress={() => {
+                        <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
                             navigation.navigate('shopLocation', { data })
                         }}>
                             <Text style={styles.buttonText(colors.primary)}>{status == 'Pending' && 'Shop location'}</Text>

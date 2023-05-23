@@ -5,13 +5,17 @@ import Home from './homeScreen'
 import Notification from './notificationScreen'
 // import ShopLocation from './shopLocation'
 import ShopLocation from './shopLocation'
+import OTPVerification from './otpVerification'
+// import GoogleMaps from './test'
 const HomeStack = () => {
     const Stack = createNativeStackNavigator()
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName='googleMaps' screenOptions={{ headerShown: false }}>
             <Stack.Screen name='home' component={Home} />
             <Stack.Screen name='notification' component={Notification} />
             <Stack.Screen name='shopLocation' component={ShopLocation} />
+            <Stack.Screen name='otpVerification' component={OTPVerification} />
+            {/* <Stack.Screen name='googleMaps' component={GoogleMaps} /> */}
         </Stack.Navigator>
     )
 }

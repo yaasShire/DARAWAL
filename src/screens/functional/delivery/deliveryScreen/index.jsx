@@ -7,8 +7,8 @@ import { Button, Dialog, Portal, SegmentedButtons } from 'react-native-paper';
 import OrderCard from '../../../../components/molecules/orderCard'
 import { orders } from '../../../../data'
 import RBSheet from "react-native-raw-bottom-sheet";
-const Delivery = ({ navigation }) => {
-    const [value, setValue] = useState('Pending');
+const Delivery = ({ navigation, route }) => {
+    const [value, setValue] = useState(route?.params?.activeTab ? route?.params?.activeTab : 'Pending');
     const [targetOrders, setTargetOrders] = useState([])
     const [alertTitle, setAlertTitle] = useState('')
     const hideDialog = () => setVisible(false);

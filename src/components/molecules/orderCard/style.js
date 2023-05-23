@@ -100,9 +100,9 @@ export default StyleSheet.create({
         color: colors.gray
     },
     address: {
-        fontSize: fontSizes.secondary,
+        fontSize: fontSizes.primary,
         color: colors.tertiary,
-        fontWeight: fontWeights.secondary
+        fontWeight: fontWeights.primary
     },
     packageInfoWrapper: {
         flexDirection: "row",
@@ -148,20 +148,28 @@ export default StyleSheet.create({
     callText: {
         color: colors.tertiary,
         fontWeight: fontWeights.secondary,
-        fontSize: fontSizes.secondary
+        fontSize: fontSizes.primary
     },
     point: {
         marginBottom: "1.5%"
     },
     buttonsWrapper: {
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         marginTop: "1%"
+    },
+    phoneWrapper: {
+        backgroundColor: colors.statusCard,
+        borderWidth: 1,
+        borderColor: colors.gray,
+        paddingHorizontal: "10%",
+        paddingVertical: "7%",
+        borderRadius: 5
     },
     button: (bgColor) => ({
         backgroundColor: bgColor,
         width: 130,
-        height: 45,
+        height: 50,
         borderRadius: 6,
         borderWidth: 1,
         borderColor: colors.secondary,

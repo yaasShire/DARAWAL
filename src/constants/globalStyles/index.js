@@ -1,5 +1,6 @@
 const colors = {
     primary: "#fff",
+    primary2: "#e6f5f3",
     secondary: "#0CBA70",
     tertiary: "#000",
     gray: "#c7c3c3",
@@ -15,7 +16,7 @@ const borderColor = {
 }
 
 const fontSizes = {
-    primary: 15,
+    primary: 14,
     secondary: 18,
     tertiary: 25
 }

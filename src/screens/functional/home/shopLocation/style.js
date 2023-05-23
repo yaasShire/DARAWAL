@@ -77,12 +77,13 @@ export default StyleSheet.create({
     },
     infoWrapper: {
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "space-between"
     },
     buttonsHolder: {
         flexDirection: "row",
         justifyContent: "space-around",
-        marginTop: "5%"
+        marginTop: "15%",
+        paddingVertical: "5%"
     },
     startButtonWrapper: {
         position: "absolute",
@@ -110,6 +111,110 @@ export default StyleSheet.create({
         color: colors.primary,
         fontWeight: fontWeights.primary,
         fontSize: fontSizes.tertiary
+    },
+    miniBottomSheetWrapper: {
+        width: "100%",
+        height: "100%"
+    },
+    estimatedWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "5%"
+    },
+    estimatedTime: {
+        fontSize: fontSizes.tertiary,
+        fontWeight: fontWeights.tertiary,
+        color: colors.tertiary
+    },
+    estimatedText: {
+        fontSize: fontSizes.primary,
+        fontWeight: fontWeights.primary,
+        color: colors.tertiary,
+        opacity: .5
+    },
+    iconWrapper: {
+        backgroundColor: colors.primary,
+        width: 40,
+        height: 40,
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: "3%"
+    },
+    iconAndContentWrapper: {
+        flexDirection: "row",
+        marginVertical: "3%"
+    },
+    contentTitle: {
+        fontSize: fontSizes.primary,
+        fontWeight: fontWeights.primary,
+        color: colors.tertiary,
+        opacity: .8
+    },
+    contentValue: {
+        fontSize: fontSizes.secondary,
+        fontWeight: fontWeights.secondary,
+        color: colors.tertiary,
+    },
+    locationAndTimeWrapper: {
+        paddingHorizontal: "5%",
+        alignItems: 'flex-start',
+        justifyContent: "center"
+    },
+    image: {
+        width: 55,
+        height: 55,
+        resizeMode: "cover",
+        borderRadius: 7
+    },
+    imageWrapper: {
+        backgroundColor: "#caede8",
+        width: 70,
+        height: 70,
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: .3,
+        borderColor: colors.gray,
+        borderRadius: 10,
+        marginRight: 8
+    },
+    infoWrapper: {
+        width: "100%",
+        padding: "5%",
+        height: "100%",
+        borderTopLeftRadius: 35,
+        borderTopRightRadius: 35
+    },
+    customerInfoWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    nameImageWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        flex: 1
+    },
+    phoneWrapper: {
+        backgroundColor: colors.primary,
+        width: 45,
+        height: 45,
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        elevation: 4
+    },
+    name: {
+        fontSize: fontSizes.primary,
+        fontWeight: fontWeights.primary
+    },
+    lineSeparator: {
+        height: 40,
+        width: 2,
+        borderStyle: 'dashed',
+        borderWidth: 1,
+        marginLeft: "5%"
     }
 
 })

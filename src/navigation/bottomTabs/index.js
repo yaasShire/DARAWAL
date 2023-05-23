@@ -8,7 +8,7 @@ import HomeScreen from '../../screens/functional/home/homeScreen';
 import HomeStack from '../../screens/functional/home';
 import DeliveryStack from '../../screens/functional/delivery';
 import HistoryStack from '../../screens/functional/history';
-import WalletStack from '../../screens/functional/wallet';
+// import WalletStack from '../../screens/functional/wallet';
 import SettingsStack from '../../screens/functional/settings';
 import { colors } from '../../constants/globalStyles';
 const Tab = createBottomTabNavigator();
@@ -55,7 +55,7 @@ export default function BottomTabs() {
                     ),
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="walletStack"
                 component={WalletStack}
                 options={{
@@ -64,7 +64,7 @@ export default function BottomTabs() {
                         <AntDesign name="wallet" color={color} size={size} />
                     ),
                 }}
-            />
+            /> */}
             <Tab.Screen
                 name="settingsStack"
                 component={SettingsStack}
