@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from "react-native";
-import { colors, fontSizes, fontWeights } from "../../../../constants/globalStyles";
+import { colors, fontSizes, fontWeights, screenPadding } from "../../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
         backgroundColor: "red",
@@ -10,6 +10,11 @@ export default StyleSheet.create({
     map: {
         width: "100%",
         height: "100%",
+        // position: 'absolute',
+        // top: 0,
+        // left: 0,
+        // right: 0,
+        // bottom: 0
 
     },
     bottomSheetContent: {
@@ -91,7 +96,7 @@ export default StyleSheet.create({
         right: 10,
         // backgroundColor: colors.primary,
         borderWidth: 3,
-        borderColor: "blue",
+        borderColor: colors.logoColor,
         zIndex: 10,
         width: 70,
         height: 70,
@@ -103,14 +108,14 @@ export default StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 50,
-        backgroundColor: "blue",
+        backgroundColor: colors.logoColor,
         justifyContent: "center",
         alignItems: "center"
     },
     startButtonText: {
         color: colors.primary,
         fontWeight: fontWeights.primary,
-        fontSize: fontSizes.tertiary
+        fontSize: fontSizes.secondary
     },
     miniBottomSheetWrapper: {
         width: "100%",
@@ -120,7 +125,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "5%"
+        padding: screenPadding
     },
     estimatedTime: {
         fontSize: fontSizes.tertiary,
@@ -158,7 +163,7 @@ export default StyleSheet.create({
         color: colors.tertiary,
     },
     locationAndTimeWrapper: {
-        paddingHorizontal: "5%",
+        paddingHorizontal: screenPadding,
         alignItems: 'flex-start',
         justifyContent: "center"
     },
@@ -181,7 +186,7 @@ export default StyleSheet.create({
     },
     infoWrapper: {
         width: "100%",
-        padding: "5%",
+        padding: screenPadding,
         height: "100%",
         borderTopLeftRadius: 35,
         borderTopRightRadius: 35
@@ -215,6 +220,15 @@ export default StyleSheet.create({
         borderStyle: 'dashed',
         borderWidth: 1,
         marginLeft: "5%"
-    }
+    },
+    fabWrapper: {
+        margin: 16,
+        width: 70,
+        height: 70,
+        borderRadius: 70 / 2,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: colors.logoColor
+    },
 
 })

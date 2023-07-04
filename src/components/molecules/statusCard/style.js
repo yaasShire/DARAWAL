@@ -1,16 +1,16 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { colors, fontSizes, fontWeights } from "../../../constants/globalStyles";
+import { colors, fontSizes, fontWeights, screenPadding } from "../../../constants/globalStyles";
 const { width, height } = new Dimensions.get('window')
 export default StyleSheet.create({
     container: {
         backgroundColor: colors.primary,
-        height: height / 3,
+        width: width / 1.05,
+        height: height / 2.5,
+        borderRadius: 5,
         borderWidth: 1,
         borderColor: colors.gray,
-        borderRadius: 10,
-        width: width / 1.14,
-        padding: "3%",
-        justifyContent: "space-between"
+        padding: screenPadding,
+        justifyContent: "space-around"
     },
     profileImage: {
         width: 50,
@@ -58,7 +58,7 @@ export default StyleSheet.create({
         fontWeight: fontWeights.tertiary
     },
     tripStatusCard: {
-        backgroundColor: "#4FA19B",
+        backgroundColor: colors.logoColor,
         width: "100%",
         height: 180,
         borderRadius: 5,
@@ -73,7 +73,9 @@ export default StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: 38,
-        height: 38
+        height: 38,
+        borderWidth: 1,
+        borderColor: colors.gray
     },
     percentNumber: {
         fontSize: fontSizes.secondary,

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, borderColor, fontSizes, fontWeights } from "../../../../constants/globalStyles";
+import { colors, borderColor, fontSizes, fontWeights, HeightDimension, WidthDimension } from "../../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -90,5 +90,33 @@ export default StyleSheet.create({
     },
     logOutText: {
         marginLeft: 6
-    }
+    },
+
+    logOutModalText: {
+        fontSize: 19,
+        fontWeight: "500"
+    },
+    cancelText: {
+        color: "green"
+    },
+    logOutTxt: {
+        color: "red"
+    },
+    modalContainerStyle: {
+        backgroundColor: 'red',
+        // height: HeightDimension / 4,
+        // width: WidthDimension / 1.2,
+        // borderRadius: 10,
+        // justifyContent: "space-around",
+        // alignItems: "center", alignSelf: "center"
+    },
+    buttonsHolder: {
+        flexDirection: "row",
+        width: "90%",
+        height: "30%",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: "10%",
+        backgroundColor: "pink"
+    },
 })

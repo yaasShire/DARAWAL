@@ -1,25 +1,27 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { colors, fontSizes, fontWeights } from "../../../constants/globalStyles";
+import { colors, fontSizes, fontWeights, screenPadding } from "../../../constants/globalStyles";
 const { width, height } = new Dimensions.get("window")
 export default StyleSheet.create({
     container: {
         backgroundColor: colors.primary,
-        width: width / 1.138,
-        height: height / 2.5,
+        width: width / 1.05,
+        height: height / 3,
         borderRadius: 5,
         borderWidth: 1,
         borderColor: colors.gray,
-        padding: "2%"
+        padding: screenPadding
     },
     image: {
-        width: 50,
-        height: 50
+        width: 65,
+        height: 65,
+        resizeMode: "cover",
+        borderRadius: 5
     },
     imageWrapper: {
-        borderWidth: 2,
-        borderColor: "pink",
-        width: 60,
-        height: 60,
+        borderWidth: 1,
+        borderColor: colors.logoColor,
+        width: 70,
+        height: 70,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
@@ -40,6 +42,7 @@ export default StyleSheet.create({
         color: colors.tertiary,
         fontWeight: fontWeights.tertiary,
         width: 150,
+        textTransform: "capitalize"
     },
     feeAmmount: {
         fontSize: fontSizes.secondary,
@@ -52,15 +55,15 @@ export default StyleSheet.create({
     },
     distanceText: {
         fontSize: fontSizes.primary,
-        color: colors.gray,
-        fontWeight: fontWeights.primary
+        color: colors.tertiary,
+        fontWeight: fontWeights.secondary
     },
     middleContentWrapper: {
         height: "63%",
         paddingVertical: "2%",
-        // marginTop: "1%",
         flexDirection: "row",
         alignItems: "center",
+        backgroundColor: "yellow"
     },
 
     parentCirlce: (bgColor) => ({
@@ -92,12 +95,12 @@ export default StyleSheet.create({
         justifyContent: "space-around",
         marginLeft: "3%",
         flex: 1,
-        // backgroundColor: "pink",
-        height: "85%"
+        backgroundColor: "pink",
+        height: "100%"
     },
     pickAndDropText: {
         fontSize: fontSizes.primary,
-        color: colors.gray
+        color: colors.secondaryGray
     },
     address: {
         fontSize: fontSizes.primary,
@@ -125,13 +128,13 @@ export default StyleSheet.create({
     },
     infoDivider: {
         height: 40,
-        backgroundColor: colors.gray,
+        backgroundColor: colors.secondaryGray,
         width: 1,
         marginHorizontal: 10
     },
     infoTitle: {
         fontSize: fontSizes.primary,
-        color: colors.gray,
+        color: colors.secondaryGray,
         fontWeight: fontWeights.primary
     },
     infoValue: {
@@ -151,20 +154,25 @@ export default StyleSheet.create({
         fontSize: fontSizes.primary
     },
     point: {
-        marginBottom: "1.5%"
+        // marginBottom: "1.5%"
+        height: 50,
+        justifyContent: "space-between"
     },
     buttonsWrapper: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: "1%"
+        marginTop: "1%",
     },
     phoneWrapper: {
-        backgroundColor: colors.statusCard,
+        backgroundColor: colors.tertiary,
         borderWidth: 1,
-        borderColor: colors.gray,
-        paddingHorizontal: "10%",
-        paddingVertical: "7%",
-        borderRadius: 5
+        borderColor: colors.tertiary,
+        padding: screenPadding,
+        borderRadius: 20,
+        width: 40,
+        height: 40,
+        justifyContent: "center",
+        alignItems: "center",
     },
     button: (bgColor) => ({
         backgroundColor: bgColor,
@@ -182,8 +190,8 @@ export default StyleSheet.create({
         fontWeight: fontWeights.primary
     }),
     completedOrderCard: {
-        backgroundColor: colors.statusCard,
-        width: 300,
+        backgroundColor: colors.logoColor,
+        width: "100%",
         height: 55,
         borderRadius: 5,
         justifyContent: "center",
@@ -195,5 +203,9 @@ export default StyleSheet.create({
         fontSize: fontSizes.secondary,
         color: colors.primary,
         marginRight: "4%"
+    },
+    completedCardWrapper: {
+        flex: 1,
+        alignItems: "center"
     }
 })

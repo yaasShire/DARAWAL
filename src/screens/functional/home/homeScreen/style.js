@@ -1,11 +1,11 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { colors, borderColor, fontWeights, fontSizes } from '../../../../constants/globalStyles'
+import { colors, borderColor, fontWeights, fontSizes, screenPadding } from '../../../../constants/globalStyles'
 const { width, height } = new Dimensions.get("window")
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.primary,
-        padding: 10
+        // padding: screenPadding,
 
     },
     onlineWrapper: {
@@ -14,8 +14,6 @@ export default StyleSheet.create({
         marginTop: "2%",
         justifyContent: "space-between",
         height: 80,
-        // position: 'absolute',
-
     },
     headerWrapper: {
 
@@ -25,20 +23,24 @@ export default StyleSheet.create({
         fontWeight: fontWeights.secondary
     },
     map: {
-        width: "100%",
-        height: "100%",
-
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: 0,
+        zIndex: -10
     },
     mapWrapper: {
-        borderWidth: 3,
+        borderWidth: 1,
         borderColor: colors.statusCard,
         borderRadius: 10,
         padding: "1%"
     },
     statusCardWrapper: {
-        position: "absolute",
-        bottom: 30,
-        left: 24,
+        flex: 1,
+        justifyContent: "flex-end",
+        marginTop: "60%",
+        padding: screenPadding
     }
 
 })

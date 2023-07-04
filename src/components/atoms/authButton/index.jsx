@@ -5,7 +5,6 @@ const AuthButton = ({ label, handleSubmit, errors, navigation, destination = "",
     return (
         <TouchableOpacity style={styles.actionButton(color)} onPress={() => {
             handleOTP()
-
         }}>
             <Text style={styles.buttonText}>{label}</Text>
         </TouchableOpacity>

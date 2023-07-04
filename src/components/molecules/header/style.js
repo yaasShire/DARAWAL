@@ -1,24 +1,30 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { colors, fontSizes, fontWeights } from "../../../constants/globalStyles";
+import { colors, fontSizes, fontWeights, screenPadding } from "../../../constants/globalStyles";
 const { width, height } = new Dimensions.get('window')
 export default StyleSheet.create({
-    header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
+    header: (bgColor) => (
+        {
+            backgroundColor: bgColor,
+            height: 60,
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: screenPadding
+        }
+    ),
+    titleWrapper: {
+        flex: 13,
+        alignItems: "center",
+
     },
-    title: {
-        color: colors.primary,
-        fontSize: fontSizes.tertiary,
-        fontWeight: fontWeights.secondary
-    },
+    title: (textColor) => ({
+        fontWeight: "500",
+        color: textColor,
+        fontSize: 25
+    }),
     badge: {
         position: 'absolute',
         zIndex: 10,
         bottom: 20
-    },
-    title: {
-        color: colors.tertiary,
-        fontSize: fontSizes.secondary
     }
 })

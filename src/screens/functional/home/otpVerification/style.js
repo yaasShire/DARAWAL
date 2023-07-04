@@ -1,13 +1,12 @@
 import { StyleSheet } from "react-native";
-import { colors, fontSizes, fontWeights } from "../../../../constants/globalStyles";
+import { colors, fontSizes, fontWeights, screenPadding } from "../../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.primary
     },
     miniWrapper: {
-        padding: 10,
-
+        padding: screenPadding,
     },
     subtitleWrapper: {
         alignItems: "center",
@@ -19,13 +18,12 @@ export default StyleSheet.create({
         color: colors.tertiary,
     },
     image: {
-        width: 270,
-        height: 270,
+        width: 180,
+        height: 180,
         resizeMode: "cover"
     },
     imageWrapper: {
         alignItems: "center",
-        paddingVertical: "2%",
     },
     inputsWrapper: {
         flexDirection: "row",
@@ -34,7 +32,6 @@ export default StyleSheet.create({
         marginTop: "5%"
     },
     textHolder: {
-        marginTop: "10%"
     },
     otpText: {
         fontSize: 30,
@@ -72,19 +69,16 @@ export default StyleSheet.create({
     },
     buttonWrapper: {
         alignItems: "center",
-        paddingVertical: "5%",
 
     },
     resendOTPWrapper: {
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: "2%",
-        marginTop: "3%"
+        marginTop: "2%"
     },
     questionText: {
         fontSize: fontSizes.primary,
         color: colors.gray,
-
     },
     resendText: {
         fontSize: fontSizes.primary,

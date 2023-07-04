@@ -1,5 +1,4 @@
-import { View, Text, StatusBar, Platform, FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { View, Text, StatusBar, Platform, FlatList, SafeAreaView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import styles from './style'
 import Header from '../../../../components/molecules/header'
@@ -7,85 +6,77 @@ import { Button, Dialog, Portal, SegmentedButtons } from 'react-native-paper';
 import OrderCard from '../../../../components/molecules/orderCard'
 import { orders } from '../../../../data'
 import RBSheet from "react-native-raw-bottom-sheet";
+import { colors } from '../../../../constants/globalStyles'
+import { fetchData } from '../../../../api/functional/fetchData'
+import OnGoing from './components/onGoing';
+import CompletedOrders from './components/completed';
+import AppLoader from '../../../../components/atoms/appLoader';
 const Delivery = ({ navigation, route }) => {
     const [value, setValue] = useState(route?.params?.activeTab ? route?.params?.activeTab : 'Pending');
     const [targetOrders, setTargetOrders] = useState([])
-    const [alertTitle, setAlertTitle] = useState('')
-    const hideDialog = () => setVisible(false);
-    const [visible, setVisible] = useState(false);
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+    const [targetTab, settargetTab] = useState("On Going")
 
     const filterOrders = (status) => {
         setTargetOrders(orders.filter(order => order.status == status))
     }
+
+    const getOnGoingOrders = async () => {
+        const data = await fetchData('agent/orders/ongoing', setError, setIsLoading)
+        if (data?.data?.data?.length > 0) {
+            setOngoingOrders(data?.data?.data)
+        }
+    }
+
     useEffect(() => {
         filterOrders(value)
     }, [])
+    const OrdersMap = new Map()
+    OrdersMap.set('On Going', <OnGoing navigation={navigation} setIsLoading={setIsLoading} error={error} setError={setError} isLoading={isLoading} />)
+    OrdersMap.set('Completed', <CompletedOrders navigation={navigation} setIsLoading={setIsLoading} error={error} setError={setError} isLoading={isLoading} />)
+
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
+            <SafeAreaView />
             <StatusBar barStyle={Platform.OS == 'android' ? 'dark-content' : 'light-content'} />
-            <Portal>
-                <Dialog visible={visible} onDismiss={hideDialog}>
-                    <Dialog.Title style={{ textAlign: "center" }}>{alertTitle}</Dialog.Title>
-
-                    <Dialog.Actions>
-                        <Button onPress={() => {
-                            hideDialog()
-
-                        }}>Cancel</Button>
-                        <Button onPress={() => {
-                            hideDialog()
-                        }}>Ok</Button>
-                    </Dialog.Actions>
-                </Dialog>
-            </Portal>
             <View>
                 <Header profile={true} title='Deliveries' bellIcon={true} navigation={navigation} />
             </View>
-            <View>
-                <SegmentedButtons
+            <SegmentedButtons
+                style={styles.segmentsWrapper}
+                value={value}
+                onValueChange={setValue}
 
-                    value={value}
-                    onValueChange={setValue}
+                buttons={[
+                    {
+                        value: 'On the way',
+                        label: 'On the way',
+                        checkedColor: "#fff",
+                        style: { backgroundColor: targetTab == 'On Going' ? colors.logoColor : colors.gray },
+                        onPress: () => settargetTab("On Going")
 
-                    buttons={[
-                        {
-                            value: 'Pending',
-                            label: 'Pending',
-                            checkedColor: "#fff",
-                            style: { backgroundColor: value == 'Pending' ? "#4FA19B" : "#D9D9D9" },
-                            onPress: () => filterOrders("Pending")
-                        },
-                        {
-                            value: 'On the way',
-                            label: 'On the way',
-                            checkedColor: "#fff",
-                            style: { backgroundColor: value == 'On the way' ? "#4FA19B" : "#D9D9D9" },
-                            onPress: () => filterOrders("On the way")
-
-                        },
-                        {
-                            value: 'Completed',
-                            label: 'Completed',
-                            checkedColor: "#fff",
-                            style: { backgroundColor: value == 'Completed' ? "#4FA19B" : "#D9D9D9" },
-                            onPress: () => filterOrders("Completed")
-                        },
-                    ]}
-                />
-            </View>
-            <FlatList
-                style={styles.ordersWrapper}
-                data={targetOrders}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                    <OrderCard navigation={navigation} data={item} status={item.status} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
-                )}
-                contentContainerStyle={{ rowGap: 15, alignItems: "center" }}
+                    },
+                    {
+                        value: 'Completed',
+                        label: 'Completed',
+                        checkedColor: "#fff",
+                        style: { backgroundColor: targetTab == 'Completed' ? colors.logoColor : colors.gray },
+                        onPress: () => settargetTab("Completed")
+                    },
+                ]}
             />
 
-
-        </SafeAreaView>
+            {
+                OrdersMap.get(targetTab)
+            }
+            {
+                isLoading && (
+                    <AppLoader />
+                )
+            }
+        </View>
     )
 }
 

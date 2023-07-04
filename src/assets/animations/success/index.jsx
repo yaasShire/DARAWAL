@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, View } from 'react-native';
+import { Animated, Easing, View, Modal } from 'react-native';
 import Lottie from 'lottie-react-native';
-import successFile from '../../../assets/animations/success/data.json'
+import successFile from './data.json'
 import { colors } from '../../../constants/globalStyles';
 import { Text } from 'react-native';
 import styles from './style'
+import { Dialog, Portal } from 'react-native-paper';
 
 export default function SuccessAnimation() {
     const animationProgress = useRef(new Animated.Value(0))
@@ -20,15 +21,15 @@ export default function SuccessAnimation() {
     }, [])
 
     return (
-        <View style={styles.animationWrapper}>
-            <Text style={styles.successText}>Order accepted</Text>
-            <Lottie
 
-
-                source={successFile}
-                progress={animationProgress.current}
-            />
-        </View>
+        <Modal animationType="slide" transparent >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Lottie style={styles.lottie} source={successFile} progress={animationProgress.current} />
+                    <Text style={styles.successText}>Order accepted</Text>
+                </View>
+            </View>
+        </Modal>
 
     );
 }

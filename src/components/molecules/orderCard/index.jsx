@@ -1,133 +1,142 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import styles from './style'
-import shopProfile from '../../../assets/images/justin.jpg'
-import { Divider } from 'react-native-paper'
-import { colors } from '../../../constants/globalStyles'
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-const OrderCard = ({ setVisible = () => { }, hideDialog = () => { }, setOrderData = () => { }, setAlertTitle = () => { }, data, status = "", navigation = () => { } }) => {
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
+import { Entypo, Feather } from '@expo/vector-icons';
+import { colors } from '../../../constants/globalStyles';
+// import * as Linking from 'expo-linking';
+
+const OrderCard = ({ order, onAccept, onReject, phone, distance, setModalVisible = () => { }, setorderId = () => { }, setTargetOrder = () => { }, accept = true, showPhoneCall = true, navigation = {}, navigateMap = false }) => {
+    //   const { id, pickup, dropoff, shopImage } = order;
+
+    const handlePhonePress = () => {
+        Linking.openURL(`tel:${order?.shop_location?.phone_number}`);
+    };
+    const orderId = order?.order_details?.UOID?.split('-')[order?.order_details?.UOID?.split('-').length - 1]
     return (
-        <View style={styles.container}>
-            <View style={styles.upperContent}>
-                <View style={styles.imageNameWrapper}>
-                    <View style={styles.imageWrapper}>
-                        <Image source={data.image} style={styles.image} />
-                    </View>
-                    <Text style={styles.userName} numberOfLines={2}>{data.shopName}</Text>
+        <View style={styles.card}>
+            <Image style={styles.shopImage} source={{ uri: `https://sweyn.co.uk/storage/images/shops/${order?.shop_location?.photos}` }} />
+            <Text style={styles.shopName}>{order?.shop_location?.name}</Text>
+            <Text style={styles.id}>Order Id #{orderId}</Text>
+            <View style={styles.addressContainer}>
+                <View style={styles.locationIconContainer}>
+                    <Feather name="map-pin" size={16} color="green" />
                 </View>
-                <View style={styles.feeAndDistanceWrapper}>
-                    <Text style={styles.feeAmmount}>${data.fee}</Text>
-                    <Text style={styles.distanceText}>{data.distance}km</Text>
-                </View>
+                <Text style={styles.address}>{order?.shop_location?.landmark}</Text>
             </View>
-            <View style={styles.middleContentWrapper}>
-                {/* left pick up pointers */}
-                <View style={styles.leftPickuPwrapper}>
-                    <View style={styles.parentCirlce(colors.tertiary)}>
-                        <View style={styles.childCirlce}></View>
-                    </View>
-                    <View style={styles.divider}></View>
-                    <View style={styles.parentCirlce(colors.secondary)}>
-                        <View style={styles.childCirlce}></View>
-                    </View>
+            <View style={styles.addressContainer}>
+                <View style={styles.locationIconContainer}>
+                    <Feather name="map-pin" size={16} color="red" />
                 </View>
-                {/* left pick up pointers */}
-                <View style={styles.pickAndropPointWrapper}>
-                    {/* pick up point */}
-                    <View>
-                        <View style={styles.point}>
-                            <Text style={styles.pickAndDropText}>Pick up point</Text>
-                            <Text style={styles.address} numberOfLines={1}>{data.pickupPoint}</Text>
-                        </View>
-                        <Divider />
-                    </View>
-                    {/* pick up point ends here */}
-                    {/* drop point */}
-                    <View>
-                        <View style={styles.point}>
-                            <Text style={styles.pickAndDropText}>Drop point</Text>
-                            <Text style={styles.address} numberOfLines={1}>{data.dropPoint}</Text>
-                        </View>
-                        <Divider />
-                        <View style={styles.packageInfoWrapper}>
-                            <View style={styles.timeAndPackages}>
-                                <View style={styles.time}>
-                                    <Text style={styles.infoTitle}>Estimated time:</Text>
-                                    <Text style={styles.infoValue}>{data.estimatedTime}</Text>
-
-                                </View>
-                                <View style={styles.package}>
-                                    <Text style={styles.infoTitle}>Packages: </Text>
-                                    <Text style={styles.infoValue}>{data.packages}</Text>
-                                </View>
-                            </View>
-                            <View style={styles.infoDivider} />
-                            <View style={styles.callIconAndText}>
-                                <Text style={styles.callText}>Call:</Text>
-                                <TouchableOpacity style={styles.phoneWrapper}>
-                                    <FontAwesome name='phone' size={20} color={"#fff"} />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                    {/* drop point ends here */}
+                <Text style={styles.address}>{order?.drop_location?.additional_information}</Text>
+            </View>
+            {/* <View style={styles.addressContainer}>
+                <View style={styles.locationIconContainer}>
+                    <Feather name="clock" size={16} color="#777" />
                 </View>
-            </View>
-            <View style={styles.buttonsWrapper}>
+                <Text style={styles.address}>{distance} away</Text>
+        </View>  */}
+            <View View style={styles.buttons} >
                 {
-                    data.status == 'New' && (
-                        <TouchableOpacity style={styles.button(colors.primary)} onPress={() => {
-                            setVisible(true)
-                            setAlertTitle("Reject")
-
+                    accept && (
+                        <TouchableOpacity style={[styles.button, styles.acceptButton]} onPress={() => {
+                            setorderId(order?.order_details?.UOID)
+                            setTargetOrder(order)
+                            onAccept()
                         }}>
-                            <Text style={styles.buttonText(colors.tertiary)}>Reject</Text>
+                            <Text style={styles.buttonText}>Accept</Text>
+                        </TouchableOpacity>
+                    )
+                }
+                {/* <TouchableOpacity style={[styles.button, styles.rejectButton]} onPress={onReject}>
+                    <Text style={styles.buttonText}>Reject</Text>
+                </TouchableOpacity> */}
+                {
+                    showPhoneCall && (
+                        <TouchableOpacity style={styles.phoneButton} onPress={handlePhonePress}>
+                            <Feather name="phone" size={24} color="#fff" />
                         </TouchableOpacity>
                     )
                 }
                 {
-                    data.status == 'New' && (
-                        <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
-                            setVisible(true)
-                            setAlertTitle("Accept")
-                            setOrderData(data)
+                    navigateMap && (
+                        <TouchableOpacity style={[styles.phoneButton, styles.shopButton]} onPress={() => {
+                            navigation.navigate('shopLocation', { order })
                         }}>
-                            <Text style={styles.buttonText(colors.primary)}>Accepted</Text>
+                            <Entypo name="shop" size={24} color="#fff" />
                         </TouchableOpacity>
                     )
                 }
-                {
-                    data.status == 'Completed' && (
-                        <View style={styles.completedOrderCard}>
-                            <Text style={styles.completedText}>Order delivered</Text>
-                            <Feather name='check' size={30} color={colors.completeButtonText} />
-                        </View>
-                    )
-                }
-                {
-                    data.status == "On the way" && (
-                        <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
-                            navigation.navigate("shopLocation", { data })
-                        }}>
-                            <Text style={styles.buttonText(colors.primary)}>{status == 'On the way' && 'Navigate Map'}</Text>
-                        </TouchableOpacity>
-                    )
-                }
-                {
-                    data.status == "Pending" && (
-                        <TouchableOpacity style={styles.button(colors.secondary)} onPress={() => {
-                            navigation.navigate('shopLocation', { data })
-                        }}>
-                            <Text style={styles.buttonText(colors.primary)}>{status == 'Pending' && 'Shop location'}</Text>
-                        </TouchableOpacity>
-                    )
-                }
+            </View >
+        </View >
+    );
+};
 
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        padding: 15,
+        marginBottom: 15,
+        elevation: 5,
+    },
+    shopImage: {
+        width: '100%',
+        height: 150,
+        marginBottom: 10,
+        borderRadius: 10,
+        borderWidth: 1
+    },
+    shopName: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    id: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    addressContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    locationIconContainer: {
+        marginRight: 5,
+    },
+    address: {
+        fontSize: 14,
+        color: '#777',
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    button: {
+        borderRadius: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+    },
+    acceptButton: {
+        backgroundColor: '#2ecc71',
+        marginRight: 10,
+    },
+    rejectButton: {
+        backgroundColor: '#e74c3c',
+        marginRight: 10,
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    phoneButton: {
+        backgroundColor: '#3498db',
+        borderRadius: 5,
+        padding: 10,
+    },
+    shopButton: {
+        backgroundColor: colors.lagoon
+    }
+});
 
-            </View>
-        </View>
-    )
-}
-
-export default OrderCard
+export default OrderCard;

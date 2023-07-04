@@ -11,6 +11,31 @@ export default StyleSheet.create({
         marginTop: "2%"
 
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: colors.primary,
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        height: 200,
+        justifyContent: "space-around",
+        width: "90%",
+
+    },
     animationWrapper: {
         backgroundColor: colors.primary,
         borderRadius: 10,
@@ -25,5 +50,9 @@ export default StyleSheet.create({
         alignItems: "center",
         padding: "5%",
         zIndex: 10
+    },
+    lottie: {
+        width: 90,
+        height: 90
     }
 })

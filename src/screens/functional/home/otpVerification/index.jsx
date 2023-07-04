@@ -32,11 +32,10 @@ const OTPVerification = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar barStyle={Platform.OS == 'android' ? 'light-content' : 'dark-content'} />
-            <View>
-                <Header backButton={true} title={"VERIFY"} navigation={navigation} />
-            </View>
+        <View style={styles.container}>
+            <SafeAreaView />
+            <StatusBar barStyle={'light-content'} />
+            <Header backButton={true} title={"VERIFY"} navigation={navigation} />
             <ScrollView style={styles.miniWrapper}>
                 <View style={styles.subtitleWrapper}>
                     <Text style={styles.subtitleText}>OTP VERIFICATION</Text>
@@ -48,7 +47,6 @@ const OTPVerification = ({ navigation }) => {
                 <View style={styles.imageWrapper}>
                     <Image source={otp2} style={styles.image} />
                 </View>
-
                 {/* otp inputs start here */}
                 <View style={styles.inputsWrapper}>
                     <View style={styles.inputView}>
@@ -74,7 +72,6 @@ const OTPVerification = ({ navigation }) => {
                         <TextInput style={styles.input}
                             keyboardType='number-pad'
                             maxLength={1}
-                            // editable={input1 !== "" ? true : false}
                             value={input2}
                             ref={inputRef2}
                             onChangeText={text => {
@@ -82,8 +79,6 @@ const OTPVerification = ({ navigation }) => {
                                 if (text) {
                                     inputRef3.current.focus()
                                 }
-
-
                             }}
                         />
                     </View>
@@ -91,7 +86,6 @@ const OTPVerification = ({ navigation }) => {
                         <TextInput style={styles.input}
                             keyboardType='number-pad'
                             maxLength={1}
-                            // editable={input1 && input2 ? true : false}
                             ref={inputRef3}
                             value={input3}
                             onChangeText={text => {
@@ -99,18 +93,13 @@ const OTPVerification = ({ navigation }) => {
                                 if (text) {
                                     inputRef4.current.focus()
                                 }
-
-
                             }}
-
-
                         />
                     </View>
                     <View style={styles.inputView}>
                         <TextInput style={styles.input}
                             keyboardType='number-pad'
                             maxLength={1}
-                            // editable={input1 && input2 && input3 ? true : false}
                             ref={inputRef4}
                             value={input4}
                             onChangeText={text => {
@@ -133,9 +122,8 @@ const OTPVerification = ({ navigation }) => {
                     <AuthButton color={colors.lagoon} label={"Verify"} handleOTP={handleOTP} />
                 </View>
             </ScrollView>
-            {/* otp inputs end here */}
 
-        </SafeAreaView>
+        </View>
     )
 }
 

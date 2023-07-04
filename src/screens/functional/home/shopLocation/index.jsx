@@ -16,15 +16,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setActiveTrip } from '../../../../redux/activeTrip';
 import customerProfile from '../../../../assets/images/justin2.png'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { MotiView } from '@motify/components';
+import { Easing } from 'react-native-reanimated';
+import { StyleSheet } from 'react-native';
+
 const ShopLocation = ({ navigation, route }) => {
     const [showGoAnimation, setShowGoAnimation] = useState(false)
     const order = useSelector(state => state.activeTrip.activeTrip)
     const [origin, setOrigin] = useState("")
     const [destination, setDestination] = useState("")
     const orderData = order?.id ? order : route.params.data
+    const { width, height } = new Dimensions.get("window")
+    const ASPECT_RATIO = width / height;
+    const LATITUDE_DELTA = 0.02;
+    const LONGTIUDE_DELTA = ASPECT_RATIO * LATITUDE_DELTA;
     const [pin, setPin] = useState({
-        latitude: 2.046934,
-        longitude: 45.318161,
+        latitude: Number(route.params?.order?.shop_location?.latitude),
+        longitude: Number(route.params?.order?.shop_location?.longitude),
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGTIUDE_DELTA,
     })
 
     const bottomSheet = useRef()
@@ -36,10 +46,7 @@ const ShopLocation = ({ navigation, route }) => {
             setShowGoAnimation(false)
         }, 3000)
     }
-    const { width, height } = new Dimensions.get("window")
-    const ASPECT_RATIO = width / height;
-    const LATITUDE_DELTA = 0.02;
-    const LONGTIUDE_DELTA = ASPECT_RATIO * LATITUDE_DELTA;
+
     const INITIAL_POSITION = {
         latitude: 2.046934,
         longitude: 45.318161,
@@ -50,18 +57,32 @@ const ShopLocation = ({ navigation, route }) => {
     return (
         <SafeAreaView>
             <StatusBar barStyle={Platform.OS == 'android' ? 'dark-content' : 'light-content'} />
-            <View>
-                <Header profile={true} bellIcon={true} title={"Shop Location"} navigation={navigation} />
-            </View>
-            <View style={styles.startButtonWrapper}>
+            <Header bgColor='transparent' profile={true} bellIcon={true} title={"Shop Location"} navigation={navigation} />
+            <MotiView
+                from={{ scale: .8, opacity: .5 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                    type: "timing",
+                    duration: 1000,
+                    easing: Easing.out(Easing.ease),
+                    loop: true
+                }}
+                style={styles.startButtonWrapper}>
                 <TouchableOpacity style={styles.startButton} onPress={() => {
                     bottomSheet.current.open()
                 }}>
                     <Text style={styles.startButtonText}>Go</Text>
                 </TouchableOpacity>
-            </View>
+            </MotiView>
             <View>
-                <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={INITIAL_POSITION} >
+                <MapView
+                    onPress={(e) => {
+                        setPin({
+                            latitude: e.nativeEvent.coordinate.latitude,
+                            longitude: e.nativeEvent.coordinate.longitude,
+                        });
+                    }}
+                    mapType='satellite' style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={pin} >
                     <Marker coordinate={pin}
                         pinColor='black'
                         draggable={true}
@@ -77,43 +98,24 @@ const ShopLocation = ({ navigation, route }) => {
                                 longitude: e.nativeEvent.coordinate.longitude
                             })
                         }}
-
                     >
                         <Callout>
                             <Text>Hello i'm here</Text>
                         </Callout>
                     </Marker>
-                    <Circle center={pin} radius={100} />
+                    <Circle style={{ backgroundColor: "blue", borderColor: 'pink', width: 100, height: 100 }} center={pin} radius={100} strokeWidth={3} strokeColor='red' fillColor={'rgba(230,238,255,0.5)'} />
                 </MapView>
                 <View style={{ width: "90%", borderWidth: 1, borderColor: colors.gray, position: "absolute", left: 20, top: 150, borderRadius: 10 }}>
-                    <GooglePlacesAutocomplete
-
-                        fetchDetails={true}
-                        GooglePlacesSearchQuery={{ rankby: 'distance' }}
-                        placeholder='Search'
-                        onPress={(data, details = null) => {
-                            // 'details' is provided when fetchDetails = true
-                            console.warn(data, details);
-
-                        }}
-
-
-                        query={{
-                            key: 'AIzaSyBHB6AZMc3WTBqQQ4_D0V5jXKPj9J-rinU',
-                            language: 'en',
-
-                        }}
-
-                        styles={{ container: { flex: 1, width: "100%", position: "absolute", zIndex: 1 }, listView: { backgroundColor: "#fff" } }}
-
-                    />
                 </View>
-
-
             </View>
             <View>
                 <RBSheet
+                    closeOnDragDown={true}
+                    dragFromTopOnly
+                    minClosingHeight={100}
+                    // animationType='slide'
                     ref={bottomSheet}
+                    closeOnPressMask
                     height={500}
                     openDuration={250}
                     customStyles={{
@@ -124,7 +126,8 @@ const ShopLocation = ({ navigation, route }) => {
                             borderTopLeftRadius: 15,
                             borderTopRightRadius: 15,
                             backgroundColor: colors.primary2
-                        }
+                        },
+                        draggableIcon: { top: 10, width: 50 }
                     }}
                 >
                     <View style={styles.miniBottomSheetWrapper}>
@@ -175,6 +178,7 @@ const ShopLocation = ({ navigation, route }) => {
 
                     </View>
                 </RBSheet>
+
 
             </View>
             {

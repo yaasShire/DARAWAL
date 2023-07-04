@@ -4,13 +4,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import OnBoardingIntro from './onBoarding'
 import Login from './login'
 import OTP from './otp'
+import Signup from './signup'
+import ResetPassword from './resetPassword'
 const AuthStack = () => {
     const Stack = createNativeStackNavigator()
     return (
-        <Stack.Navigator initialRouteName='otp' screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName='login' screenOptions={{ headerShown: false }}>
             <Stack.Screen name='onBoarding' component={OnBoardingIntro} />
             <Stack.Screen name='login' component={Login} />
+            <Stack.Screen name='signup' component={Signup} />
             <Stack.Screen name='otp' component={OTP} />
+            <Stack.Screen name='resetpassword' component={ResetPassword} />
         </Stack.Navigator>
     )
 }

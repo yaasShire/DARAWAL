@@ -11,6 +11,7 @@ import HistoryStack from '../../screens/functional/history';
 // import WalletStack from '../../screens/functional/wallet';
 import SettingsStack from '../../screens/functional/settings';
 import { colors } from '../../constants/globalStyles';
+import { Platform } from 'react-native';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
@@ -21,7 +22,9 @@ export default function BottomTabs() {
             screenOptions={{
                 tabBarActiveTintColor: '#16B9B9',
                 headerShown: false,
-                tabBarStyle: { backgroundColor: colors.primary, }
+                tabBarLabelStyle: { fontSize: 11, fontWeight: '500', marginBottom: "5%" },
+                tabBarStyle: { height: Platform.OS == 'android' ? 65 : 85, backgroundColor: colors.primary, justifyContent: "center", alignItems: "center" },
+
             }}
         >
             <Tab.Screen

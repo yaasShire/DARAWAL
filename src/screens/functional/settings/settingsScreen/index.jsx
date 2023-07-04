@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, Platform, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, StatusBar, Platform, Image, TouchableOpacity, ScrollView, Modal } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import React from 'react'
 import styles from './style.js'
@@ -9,10 +9,23 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons.js';
 import AntiDesign from 'react-native-vector-icons/AntDesign.js';
 import Ionicons from 'react-native-vector-icons/Ionicons.js';
-import { Divider } from 'react-native-paper'
+import { Button, Divider } from 'react-native-paper'
 import PrivacyAndPolicy from '../privacyAndPolicy/index.jsx'
 import HelpCenter from '../helpCenter/index.jsx'
+import LogOutModal from '../components/modal/index.jsx'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const Settings = ({ navigation }) => {
+    const [visible, setVisible] = React.useState(false);
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+
+
+    const logout = async () => {
+        await AsyncStorage.setItem("access_token", "")
+        await AsyncStorage.setItem("token_type", "")
+        await AsyncStorage.setItem("user", "")
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle={Platform.OS == 'android' ? 'light-content' : 'dark-content'} />
@@ -75,18 +88,16 @@ const Settings = ({ navigation }) => {
                                     <Text style={styles.actionName}>Help center</Text>
                                 </View>
                                 <Entypo name='chevron-right' size={25} style={styles.chevronIcon} />
-
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.logOutSectionWrapper}>
+                    <TouchableOpacity onPress={() => { setVisible(true) }} style={styles.logOutSectionWrapper}>
                         <AntiDesign name='logout' size={25} color={"red"} />
                         <Text style={styles.logOutText}>Log out</Text>
                     </TouchableOpacity>
                 </ScrollView>
-
             </View>
-
+            <LogOutModal logout={logout} visible={visible} setVisible={setVisible} navigation={navigation} />
         </SafeAreaView>
     )
 }

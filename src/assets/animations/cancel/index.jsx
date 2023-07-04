@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, View } from 'react-native';
+import { Animated, Easing, Modal, View } from 'react-native';
 import Lottie from 'lottie-react-native';
-import cancelFile from '../../../assets/animations/cancel/data.json'
+import cancelFile from './data.json'
 import { colors } from '../../../constants/globalStyles';
 import { Text } from 'react-native';
 import styles from './style'
@@ -18,16 +18,16 @@ export default function CancelAnimation() {
 
         }).start();
     }, [])
-
     return (
-        <View style={styles.animationWrapper}>
-            <Text style={styles.successText}>Order cancelled</Text>
-            <Lottie
-                style={{}}
-                source={cancelFile}
-                progress={animationProgress.current}
-            />
-        </View>
+
+        <Modal animationType="slide" transparent >
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Lottie style={styles.lottie} source={cancelFile} progress={animationProgress.current} />
+                    <Text style={styles.successText}>Order Canceled</Text>
+                </View>
+            </View>
+        </Modal>
 
     );
 }

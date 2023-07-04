@@ -18,10 +18,6 @@ const StatusCard = () => {
                         <Text style={styles.levelText}>Basic level</Text>
                     </View>
                 </View>
-                <View>
-                    <Text style={styles.balanceText}>Balance</Text>
-                    <Text style={styles.balanceAmmount}>$850</Text>
-                </View>
             </View>
             <View style={styles.tripStatusCard}>
                 <View style={styles.statusColumn}>
