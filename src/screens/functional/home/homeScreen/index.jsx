@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, Platform, SafeAreaView } from 'react-native'
+import { View, Text, StatusBar, Platform, SafeAreaView, } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style'
 import Header from '../../../../components/molecules/header';

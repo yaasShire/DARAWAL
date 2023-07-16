@@ -2,20 +2,13 @@ import { Platform, StyleSheet } from "react-native";
 import { colors, fontSizes, fontWeights, screenPadding } from "../../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
-        backgroundColor: "red",
+        // backgroundColor: "red",
         flex: 1,
-        padding: 10
+        // padding: 10
     },
 
     map: {
-        width: "100%",
-        height: "100%",
-        // position: 'absolute',
-        // top: 0,
-        // left: 0,
-        // right: 0,
-        // bottom: 0
-
+        flex: 1
     },
     bottomSheetContent: {
         width: "100%",
