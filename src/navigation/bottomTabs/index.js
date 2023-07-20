@@ -18,7 +18,6 @@ export default function BottomTabs() {
     return (
         <Tab.Navigator
             initialRouteName="Feed"
-
             screenOptions={{
                 tabBarActiveTintColor: '#16B9B9',
                 headerShown: false,
@@ -45,10 +44,9 @@ export default function BottomTabs() {
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="shopping-cart" color={color} size={size} />
                     ),
-                    tabBarBadge: 3,
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="historyStack"
                 component={HistoryStack}
                 options={{
@@ -57,7 +55,7 @@ export default function BottomTabs() {
                         <FontAwesome5 name="clock" color={color} size={size} />
                     ),
                 }}
-            />
+            /> */}
             {/* <Tab.Screen
                 name="walletStack"
                 component={WalletStack}

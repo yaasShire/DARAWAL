@@ -21,3 +21,6 @@ export const formDataGenerator = (values) => {
     })
     return data;
 }
+export const nameShortner = (name = "", maximumSize = 16) => {
+    return name.length > maximumSize ? name.slice(0, maximumSize) + '...' : name
+}

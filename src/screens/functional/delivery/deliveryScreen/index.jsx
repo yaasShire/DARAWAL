@@ -18,20 +18,6 @@ const Delivery = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [targetTab, settargetTab] = useState("On Going")
 
-    const filterOrders = (status) => {
-        setTargetOrders(orders.filter(order => order.status == status))
-    }
-
-    const getOnGoingOrders = async () => {
-        const data = await fetchData('agent/orders/ongoing', setError, setIsLoading)
-        if (data?.data?.data?.length > 0) {
-            setOngoingOrders(data?.data?.data)
-        }
-    }
-
-    useEffect(() => {
-        filterOrders(value)
-    }, [])
     const OrdersMap = new Map()
     OrdersMap.set('On Going', <OnGoing navigation={navigation} setIsLoading={setIsLoading} error={error} setError={setError} isLoading={isLoading} />)
     OrdersMap.set('Completed', <CompletedOrders navigation={navigation} setIsLoading={setIsLoading} error={error} setError={setError} isLoading={isLoading} />)
@@ -54,6 +40,7 @@ const Delivery = ({ navigation, route }) => {
                         value: 'On the way',
                         label: 'On the way',
                         checkedColor: "#fff",
+                        uncheckedColor: "#000",
                         style: { backgroundColor: targetTab == 'On Going' ? colors.logoColor : colors.gray },
                         onPress: () => settargetTab("On Going")
 
@@ -62,6 +49,7 @@ const Delivery = ({ navigation, route }) => {
                         value: 'Completed',
                         label: 'Completed',
                         checkedColor: "#fff",
+                        uncheckedColor: "#000",
                         style: { backgroundColor: targetTab == 'Completed' ? colors.logoColor : colors.gray },
                         onPress: () => settargetTab("Completed")
                     },

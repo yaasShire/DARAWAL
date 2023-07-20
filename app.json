@@ -18,6 +18,8 @@
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.darawal.mechanic",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyCsJ_JBbomxUgMeWecFqNcOEk2g60NfKow"
@@ -30,6 +32,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "af1f6bf2-c542-4318-b32f-1a8129823bc8"
+      }
     }
   }
 }

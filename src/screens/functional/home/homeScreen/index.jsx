@@ -13,21 +13,37 @@ import CancelAnimation from '../../../../assets/animations/cancel';
 import OrderModal from '../components/dialog';
 import Status from './components/status';
 import { mapCustomStyle } from '../../../../utils';
+import { fetchData } from '../../../../api/functional/fetchData';
 
 const Home = ({ navigation }) => {
     const [isSwitchOn, setIsSwitchOn] = useState(false)
     const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn)
     const [visible, setVisible] = React.useState(false)
     const [alertTitle, setAlertTitle] = useState('')
-    const [newOrderExist, setnewOrderExist] = useState(true)
+    const [newOrderExist, setnewOrderExist] = useState(false)
     const [orderData, setOrderData] = useState({})
     const [successAnimation, setSuccessAnimation] = useState(false)
     const [cancelAnimation, setCancelAnimation] = useState(false)
+    const [orders, setOrders] = useState([])
+    const [error, setError] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
     const hideDialog = () => setVisible(false)
+
+    const getFirstOrder = async () => {
+        const { data } = await fetchData('agent/orders/unassigned', setError, setIsLoading)
+        // console.log(data)
+        if (data?.data?.length > 0) {
+            setOrders(data?.data)
+            setnewOrderExist(true)
+        }
+    }
+
     useEffect(() => {
+        getFirstOrder()
         setSuccessAnimation(false)
         setCancelAnimation(false)
     }, [])
+    console.log(orders)
     return (
         <View style={styles.container}>
             <SafeAreaView />
@@ -37,11 +53,11 @@ const Home = ({ navigation }) => {
             <Status isSwitchOn={isSwitchOn} onToggleSwitch={onToggleSwitch} />
             <OrderModal setnewOrderExist={setnewOrderExist} setSuccessAnimation={setSuccessAnimation} setCancelAnimation={setCancelAnimation} alertTitle={alertTitle} orderData={orderData} navigation={navigation} visible={visible} setVisible={setVisible} />
             <View style={styles.statusCardWrapper}>
-                {
+                {/* {
                     newOrderExist ?
-                        <OrderCard setOrderData={setOrderData} navigation={navigation} data={orders[0]} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
-                        : <StatusCard />
-                }
+                        <OrderCard setOrderData={setOrderData} navigation={navigation} order={orders[0]} setVisible={setVisible} hideDialog={hideDialog} setAlertTitle={setAlertTitle} />
+                        : null
+                } */}
             </View>
             {successAnimation && (
                 <SuccessAnimation />

@@ -8,26 +8,11 @@ import AppLoader from '../../../../components/atoms/appLoader';
 import ResponseModal from '../../../../components/molecules/responseModal';
 import { postData } from '../../../../api/functional/postData';
 import { RefreshControl } from 'react-native-gesture-handler';
-const orders = [
-    {
-        id: 1,
-        pickup: '123 Main St, Anytown, USA',
-        dropoff: '456 Maple Ave, Anytown, USA',
-        shopImage: 'https://via.placeholder.com/300x150',
-    },
-    {
-        id: 2,
-        pickup: '789 Elm St, Anytown, USA',
-        dropoff: '321 Oak Ln, Anytown, USA',
-        shopImage: 'https://via.placeholder.com/300x150',
-    },
-];
-
-
+import NoDataFound from '../../../../components/molecules/noDataFound';
 
 const NotificationScreen = ({ navigation }) => {
     const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const [orders, setOrders] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const [modalTitle, setModalTitle] = useState("")
@@ -36,6 +21,7 @@ const NotificationScreen = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(false)
     const [targetOrder, setTargetOrder] = useState(null)
     const getOrders = async () => {
+        setIsLoading(true)
         const data = await fetchData('agent/orders/unassigned', setError, setIsLoading)
         if (data?.data?.data?.length > 0) {
             setOrders(data?.data?.data)
@@ -64,15 +50,19 @@ const NotificationScreen = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.title}>New Orders</Text> */}
             <Header navigation={navigation} title='Notificatios' backButton={true} backButtonColor='#000' />
-            <FlatList
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getOrders} />}
-                showsVerticalScrollIndicator={false}
-                data={orders}
-                renderItem={({ item }) => <OrderCard setTargetOrder={setTargetOrder} setorderId={setorderId} onAccept={onAccept} onReject={onReject} setModalVisible={setModalVisible} order={item} />}
-                contentContainerStyle={{ padding: screenPadding }}
-            />
+            {
+                orders?.length !== 0 ?
+                    <FlatList
+                        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getOrders} />}
+                        showsVerticalScrollIndicator={false}
+                        data={orders}
+                        renderItem={({ item }) => <OrderCard setTargetOrder={setTargetOrder} setorderId={setorderId} onAccept={onAccept} onReject={onReject} setModalVisible={setModalVisible} order={item} />}
+                        contentContainerStyle={{ padding: screenPadding }}
+                    /> :
+                    <NoDataFound fetchOrders={getOrders} />
+            }
+
             {
                 isLoading && (
                     <AppLoader />

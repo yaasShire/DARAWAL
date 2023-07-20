@@ -223,5 +223,23 @@ export default StyleSheet.create({
         alignItems: "center",
         backgroundColor: colors.logoColor
     },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+    },
+    fab_2: {
+        position: 'absolute',
+        margin: 16,
+        left: 16,
+        bottom: 0,
+    },
+    fab_3: {
+        position: 'absolute',
+        marginBottom: 16,
+        left: "40%",
+        bottom: 0,
+    },
 
 })

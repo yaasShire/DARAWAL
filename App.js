@@ -6,12 +6,68 @@ import RootStackNavigation from './src/navigation/rootStackNavigation';
 import { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
+import { Alert } from 'react-native';
+import { postData } from './src/api/functional/postData';
 export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  useEffect(() => {
-    (async () => {
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
+
+  async function requestUserPermission() {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging?.Status?.AUTHORIZED ||
+      authStatus === messaging?.AuthorizationStatus?.PROVISIONAL;
+
+    if (enabled) {
+      // console.log('Authorization status:', authStatus);
+    }
+  }
+
+  useEffect(() => {
+    if (requestUserPermission()) {
+      messaging().getToken().then(async (token) => {
+        const formData = new FormData()
+        formData.append('fcm', token)
+        const data = await postData('agent/user/updateFCM/', formData, setError, setIsLoading)
+
+      });
+    } else {
+      alert("notification permission declined")
+    }
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log(
+        'Notification caused app to open from background state:',
+        remoteMessage.notification,
+      );
+    });
+
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:',
+            remoteMessage.notification,
+          );
+        }
+      });
+
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+
+
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log(remoteMessage)
+      Alert.alert(remoteMessage.data.title, remoteMessage.data.message);
+    });
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
@@ -25,6 +81,7 @@ export default function App() {
       }))
       setLocation(location);
     })();
+    return unsubscribe;
   }, []);
 
   return (

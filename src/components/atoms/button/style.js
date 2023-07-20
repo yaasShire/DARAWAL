@@ -3,11 +3,11 @@ import { colors, fontSizes, fontWeights } from "../../../constants/globalStyles"
 export default StyleSheet.create({
     buttonWrapper: (color) => ({
         backgroundColor: color,
-        width: 130,
+        width: "100%",
         height: 55,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 5
+        borderRadius: 50
     }),
     buttonText: {
         color: colors.primary,
