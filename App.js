@@ -9,6 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import { Alert } from 'react-native';
 import { postData } from './src/api/functional/postData';
+import { ToastAndroid } from 'react-native';
+import ToastBar from './src/components/molecules/toastBar';
 export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -23,7 +25,7 @@ export default function App() {
       authStatus === messaging?.AuthorizationStatus?.PROVISIONAL;
 
     if (enabled) {
-      // console.log('Authorization status:', authStatus);
+      console.log('Authorization status:', authStatus);
     }
   }
 
@@ -32,8 +34,7 @@ export default function App() {
       messaging().getToken().then(async (token) => {
         const formData = new FormData()
         formData.append('fcm', token)
-        const data = await postData('agent/user/updateFCM/', formData, setError, setIsLoading)
-
+        const data = await postData('agent/user/updateFCM', formData, setError, setIsLoading)
       });
     } else {
       alert("notification permission declined")
@@ -44,6 +45,10 @@ export default function App() {
         'Notification caused app to open from background state:',
         remoteMessage.notification,
       );
+      console.log('====================================');
+      console.log(remoteMessage);
+      console.log('====================================');
+      ToastAndroid.show('Request sent successfully!', ToastAndroid.TOP);
     });
 
     // Check whether an initial notification is available
@@ -61,7 +66,6 @@ export default function App() {
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       console.log('Message handled in the background!', remoteMessage);
     });
-
 
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log(remoteMessage)
@@ -83,6 +87,8 @@ export default function App() {
     })();
     return unsubscribe;
   }, []);
+
+
 
   return (
     <Provider store={store}>

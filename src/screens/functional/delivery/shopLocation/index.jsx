@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { postData } from '../../../../api/functional/postData';
 import VerifyOtpModal from './components/verifyOtpModal';
 import SendOTPModal from './components/otpModal';
+import StatusBarComponent from '../../../../components/atoms/statusBar';
 
 const ShopLocation = ({ navigation, route }) => {
     const [showGoAnimation, setShowGoAnimation] = useState(false)
@@ -61,7 +62,6 @@ const ShopLocation = ({ navigation, route }) => {
         bottomSheet.current.close()
     };
 
-
     if (showGoAnimation) {
         setTimeout(() => {
             setShowGoAnimation(false)
@@ -83,6 +83,7 @@ const ShopLocation = ({ navigation, route }) => {
     useEffect(() => {
         const getOrigin = async () => {
             const originCoordinate = JSON.parse(await AsyncStorage.getItem("current_location"))
+            console.log(originCoordinate)
             setOrigin({
                 latitude: originCoordinate?.latitude,
                 longitude: originCoordinate?.longitude,
@@ -118,11 +119,11 @@ const ShopLocation = ({ navigation, route }) => {
             setOtpResultMessage(result?.data)
 
         }
-        // alert('hello')
     }
-
+    // console.log(route.params)
     return (
         <View style={styles.container}>
+            <StatusBarComponent barStyle={'default'} />
             <MapView style={styles.map} region={region}>
                 <Marker coordinate={origin} pinColor="blue" />
                 <Marker coordinate={destination} pinColor="red" />

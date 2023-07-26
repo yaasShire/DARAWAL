@@ -5,9 +5,11 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import styles from './style'
 import { ScrollView } from 'react-native-gesture-handler'
 import Header from '../../../../components/molecules/header'
+import StatusBarComponent from '../../../../components/atoms/statusBar'
 const PrivacyAndPolicy = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBarComponent />
             <View>
                 <Header backButton={true} title={"Privacy & Policy"} navigation={navigation} />
             </View>

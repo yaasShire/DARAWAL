@@ -18,6 +18,7 @@ import EditProfileDataModal from './components/editProfileDataModal/index.jsx'
 import { fetchData } from '../../../../api/functional/fetchData.js'
 import AppLoader from '../../../../components/atoms/appLoader/index.jsx'
 import { RefreshControl } from 'react-native-gesture-handler'
+import StatusBarComponent from '../../../../components/atoms/statusBar/index.jsx'
 const Settings = ({ navigation }) => {
     const [visible, setVisible] = React.useState(false);
     const showModal = () => setVisible(true);
@@ -32,15 +33,14 @@ const Settings = ({ navigation }) => {
         await AsyncStorage.setItem("token_type", "")
         await AsyncStorage.setItem("user", "")
     }
-    const editProfileHandler = async () => {
-        alert('hello')
-    }
+
     const getUserData = async () => {
-        setRefreshing(true)
+        // setRefreshing(true)
         const { data } = await fetchData('agent/user/view', setError, setIsLoading)
+        console.log(data)
         setUserData(data?.data[0])
         if (data?.data[0]) {
-            setRefreshing(false)
+            // setRefreshing(false)
         }
     }
     useEffect(() => {
@@ -48,7 +48,7 @@ const Settings = ({ navigation }) => {
     }, [])
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle={Platform.OS == 'android' ? 'light-content' : 'dark-content'} />
+            <StatusBarComponent />
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getUserData} />}>
                 <View>
                     <Header title={"Settings"} navigation={navigation} />

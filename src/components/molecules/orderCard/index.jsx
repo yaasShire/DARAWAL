@@ -59,7 +59,7 @@ const OrderCard = ({ order, onAccept, onReject, phone, distance, setModalVisible
                 {
                     navigateMap && (
                         <TouchableOpacity style={[styles.phoneButton, styles.shopButton]} onPress={() => {
-                            navigation.navigate('deliveryStack', { screen: "shopLocation", params: { order } })
+                            navigation.navigate("shopLocation", { order })
                         }}>
                             <Entypo name="shop" size={24} color="#fff" />
                         </TouchableOpacity>

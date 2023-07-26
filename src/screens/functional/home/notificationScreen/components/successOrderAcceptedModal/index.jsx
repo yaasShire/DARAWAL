@@ -1,42 +1,52 @@
-import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Modal, StyleSheet, Text, Pressable, View, Animated, Easing } from 'react-native';
 import { Image } from 'react-native';
-import responseIMG from '../../../assets/images/responseIMG.png'
-import { colors, fontWeights } from '../../../constants/globalStyles';
-const ResponseModal = ({ setModalVisible = () => { }, modalVisible = false, setResponseModal = () => { }, modalDescription = "", modalTitle = "", acceptOrderProcess = () => { }, setSuccessModalShow = () => { } }) => {
+import Lottie from 'lottie-react-native';
+import orderAcceptedAnimation from '../../../../../../assets/animations/success/data.json'
+import responseIMG from '../../../../../../assets/images/responseIMG.png'
+// import { colors, fontWeights } from '../../../constants/globalStyles';
+import { colors, fontWeights } from '../../../../../../constants/globalStyles';
+const SuccessOrderAcceptedModal = ({ navigation = () => { }, setSuccessModalShow = () => { }, successModalShow = false, setResponseModal = () => { }, modalDescription = "", modalTitle = "", acceptOrderProcess = () => { } }) => {
+
+    const animationProgress = useRef(new Animated.Value(0))
+
+    useEffect(() => {
+        Animated.timing(animationProgress.current, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: false
+
+        }).start();
+    }, [])
     return (
         <Modal
             animationType="slide"
-            onDismiss={() => setModalVisible(false)}
+            onDismiss={() => setSuccessModalShow(false)}
             transparent={true}
-            visible={modalVisible}
+            visible={successModalShow}
             onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
-                setModalVisible(!modalVisible);
+                setSuccessModalShow(!successModalShow);
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View>
-                        <Image source={responseIMG} style={styles.image} />
+                        {/* <Image source={responseIMG} style={styles.image} /> */}
+                        <Lottie style={{ width: 100, height: 100 }} source={orderAcceptedAnimation} progress={animationProgress.current} />
                     </View>
                     <View style={styles.textWrapper}>
                         <Text style={styles.title}>{modalTitle}</Text>
-                        <Text style={styles.description}>{modalDescription}</Text>
+                        <Text style={styles.description}>Order is accpeted to process this order navigate to the on going orders screen.</Text>
                     </View>
                     <View style={styles.btnsWrapper}>
-                        <Pressable style={[styles.btn, styles.btn1]} onPress={() => setModalVisible(false)}>
-                            <Text style={styles.btnText}>Cancel</Text>
+                        <Pressable style={[styles.btn, styles.btn1]} onPress={() => setSuccessModalShow(false)}>
+                            <Text style={[styles.btnText, styles.btnText1]}>Cancel</Text>
                         </Pressable>
                         <Pressable style={styles.btn} onPress={() => {
-                            setResponseModal(true)
-                            setTimeout(() => {
-                                setModalVisible(false)
-                            }, 100)
-                            if (modalTitle == 'Accept') {
-                                acceptOrderProcess()
-                            }
+                            setSuccessModalShow(false)
+                            navigation.navigate("deliveryStack", { screen: "delivery" })
                         }}>
-                            <Text style={styles.btnText}>{modalTitle}</Text>
+                            <Text style={styles.btnText}>Ok</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -69,7 +79,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         width: "90%",
-        height: 350,
+        height: 290,
         paddingTop: 10
     },
     button: {
@@ -82,6 +92,9 @@ const styles = StyleSheet.create({
     },
     buttonClose: {
         backgroundColor: '#2196F3',
+    },
+    btnText1: {
+        color: "gray"
     },
     textStyle: {
         color: 'white',
@@ -97,22 +110,24 @@ const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "space-around",
         alignItems: "center",
-        height: 70,
+        height: 65,
         borderTopWidth: 1,
         borderTopColor: colors.primaryGray
     },
-    btn1: {
-        borderRightWidth: 1,
-        borderRightColor: colors.primaryGray
-    },
+
     btn: {
         width: "50%",
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
     },
+    btn1: {
+        borderRightWidth: 1,
+        borderRightColor: colors.primaryGray,
+        color: "gray"
+    },
     btnText: {
-        color: colors.blue,
+        color: "blue",
         fontSize: 18,
         fontWeight: fontWeights.primary
     },
@@ -138,4 +153,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ResponseModal;
+export default SuccessOrderAcceptedModal;

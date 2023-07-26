@@ -20,7 +20,6 @@ const OTPVerification = ({ navigation }) => {
     const inputRef3 = useRef()
     const inputRef4 = useRef()
     const handleOTP = () => {
-        dispatch(setActiveTrip({}))
         if ((input1 && input2) && (input3 && input4)) {
             navigation.navigate("home");
             navigation.navigate("deliveryStack", {

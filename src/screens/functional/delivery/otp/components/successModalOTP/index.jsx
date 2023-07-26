@@ -10,7 +10,6 @@ const SuccessOTPModal = ({ handleClearOTP = () => { }, orderId = "", setSuccessM
             transparent={true}
             visible={successModalOtp}
             onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
                 setSuccessModalOtp(prev => !prev);
             }}>
             <View style={styles.centeredView}>
@@ -31,8 +30,7 @@ const SuccessOTPModal = ({ handleClearOTP = () => { }, orderId = "", setSuccessM
                                 setSuccessModalOtp(false)
                             }
                             if (verificationResult == 'OTP verified successfully.') {
-                                alert('otp verified successfully')
-                                navigation?.replace("delivery")
+                                navigation?.navigate("delivery")
                             }
                         }}>
                             <Text style={styles.btnText}>{verificationResult === 'OTP not found.' ? 'Try again' : 'Ok'}</Text>

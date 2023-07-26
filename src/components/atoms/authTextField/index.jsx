@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import styles from './style'
 import { Ionicons } from '@expo/vector-icons'
 const AuthTextField = ({ placeholder = "", secureTextEntry = false, errors = {}, touched = {}, setFieldTouched = () => { }, handleBlur = () => { }, handleChange = () => { }, values = {}, name = "", keyboardType = 'default' }) => {
-    const [showPassword, setShowPassword] = useState(true)
+    const [showPassword, setShowPassword] = useState(secureTextEntry)
     return (
         <>
             {(errors[name] && touched[name]) && (
@@ -17,7 +17,7 @@ const AuthTextField = ({ placeholder = "", secureTextEntry = false, errors = {},
                     keyboardType={keyboardType}
                     style={styles.input}
                     placeholder={placeholder}
-                    secureTextEntry={secureTextEntry}
+                    secureTextEntry={showPassword}
                     onChangeText={(text) => {
                         handleChange(name)(text)
                     }} onBlur={() => {

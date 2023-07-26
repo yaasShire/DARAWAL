@@ -9,11 +9,9 @@ const OnGoing = ({ setIsLoading = () => { }, setError = () => { }, isLoading = t
     const [ongoingOrders, setOngoingOrders] = useState([])
     const [refreshing, setRefreshing] = useState(false)
     const getOnGoingOrders = async () => {
-        setRefreshing(true)
         const data = await fetchData('agent/orders/ongoing', setError, setIsLoading)
         if (data?.data?.data?.length > 0) {
             setOngoingOrders(data?.data?.data)
-            setRefreshing(false)
         }
     }
     useEffect(() => {
@@ -37,7 +35,7 @@ const OnGoing = ({ setIsLoading = () => { }, setError = () => { }, isLoading = t
                 )
             }
             {
-                !ongoingOrders && <NoDataFound />
+                !ongoingOrders.length && <NoDataFound />
             }
 
         </>

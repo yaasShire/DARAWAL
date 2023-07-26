@@ -31,10 +31,11 @@ const UpperProfile = ({ onPress = () => { }, userData = {}, setIsLoading = () =>
                 type: `image/${result.assets[0].uri.slice(-4)}`
             })
             const updateImageData = await postData('agent/user/update', data, setError, setIsLoading)
+            console.log(updateImageData)
             if (updateImageData?.result?.status == 'updated successfully') {
                 // setUserData()
                 getUserData()
-                console.log(updateImageData)
+                // console.log(updateImageData)
             }
         }
     };
@@ -50,6 +51,7 @@ const UpperProfile = ({ onPress = () => { }, userData = {}, setIsLoading = () =>
                 <View style={styles.namePhoneNumberWrapper}>
                     <Text style={styles.name}>{nameShortner(userData?.name, 25)}</Text>
                     <Text style={styles.phone_number}>{nameShortner(userData?.phone_number, 25)}</Text>
+                    <Text style={styles.phone_number}>{nameShortner(userData?.email, 25)}</Text>
                 </View>
             </View>
             <Pressable onPress={onPress}>

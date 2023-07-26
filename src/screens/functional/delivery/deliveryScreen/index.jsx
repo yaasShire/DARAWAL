@@ -11,6 +11,7 @@ import { fetchData } from '../../../../api/functional/fetchData'
 import OnGoing from './components/onGoing';
 import CompletedOrders from './components/completed';
 import AppLoader from '../../../../components/atoms/appLoader';
+import StatusBarComponent from '../../../../components/atoms/statusBar';
 const Delivery = ({ navigation, route }) => {
     const [value, setValue] = useState(route?.params?.activeTab ? route?.params?.activeTab : 'Pending');
     const [targetOrders, setTargetOrders] = useState([])
@@ -26,7 +27,7 @@ const Delivery = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <SafeAreaView />
-            <StatusBar barStyle={Platform.OS == 'android' ? 'dark-content' : 'light-content'} />
+            <StatusBarComponent />
             <View>
                 <Header profile={true} title='Deliveries' bellIcon={true} navigation={navigation} />
             </View>

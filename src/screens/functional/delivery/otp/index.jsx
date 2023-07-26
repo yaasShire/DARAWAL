@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { postData } from '../../../../api/functional/postData';
 import SuccessOTPModal from './components/successModalOTP';
+import StatusBarComponent from '../../../../components/atoms/statusBar';
 // import SuccessOTPModal from './components/successModal';
 
-const OTP = ({ route }) => {
+const OTP = ({ route, navigation }) => {
     const [otp, setOTP] = useState('');
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -34,7 +35,8 @@ const OTP = ({ route }) => {
         const formData = new FormData()
         formData.append('UOID', route?.params?.id)
         formData.append('OTP', Number(newOTP))
-        formData.append('type', 1)
+        formData.append('type', 2)
+        console.log(formData)
         const { result } = await postData('agent/orders/verifyotp', formData, setError, setIsLoading)
         console.log(result)
         setSuccessModalOtp(true)
@@ -56,7 +58,7 @@ const OTP = ({ route }) => {
 
     return (
         <View style={styles.container}>
-
+            <StatusBarComponent />
             <Text style={styles.title}>Enter OTP</Text>
             <Text style={styles.subtitle}>Please enter the 4-digit code sent to your phone.</Text>
             <View style={styles.inputContainer}>
@@ -118,7 +120,7 @@ const OTP = ({ route }) => {
                     <Text style={styles.buttonText}>Verify OTP</Text>
                 </TouchableOpacity>
             </View>
-            <SuccessOTPModal handleClearOTP={handleClearOTP} verificationResult={verificationResult} successModalOtp={successModalOtp} setSuccessModalOtp={setSuccessModalOtp} />
+            <SuccessOTPModal handleClearOTP={handleClearOTP} verificationResult={verificationResult} successModalOtp={successModalOtp} setSuccessModalOtp={setSuccessModalOtp} navigation={navigation} />
         </View>
     );
 };

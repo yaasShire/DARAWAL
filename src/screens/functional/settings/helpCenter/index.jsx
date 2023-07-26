@@ -7,6 +7,7 @@ import phone from '../../../../assets/images/phone.png'
 import Whatsapp from '../../../../assets/images/whatsapp.png'
 import privacyImage from '../../../../assets/images/privacyImage.png'
 import Header from '../../../../components/molecules/header'
+import StatusBarComponent from '../../../../components/atoms/statusBar'
 const HelpCenter = ({ navigation }) => {
     const openWhatsApp = () => {
         let msg = "Hello Yusuf";
@@ -35,6 +36,7 @@ const HelpCenter = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBarComponent />
             <View>
                 <Header navigation={navigation} backButton={true} title={"Help Center"} />
             </View>

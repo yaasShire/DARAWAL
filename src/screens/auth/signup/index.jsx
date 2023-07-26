@@ -56,7 +56,7 @@ function Signup({ navigation }) {
                     {
                         error && (
                             <View style={styles.errorWrapper}>
-                                <Text style={styles.errorText}>{error}</Text>
+                                <Text style={styles.errorText}>{JSON.stringify(error)}</Text>
                             </View>
                         )
                     }

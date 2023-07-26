@@ -14,6 +14,7 @@ export const postData = async (endPoint, payload, setError, setIsLoading) => {
                     'Authorization': `${token_type} ${access_token}`
                 }
             })
+
             const result = await data.json();
             setIsLoading(false)
             return { result }

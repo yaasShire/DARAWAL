@@ -24,6 +24,7 @@ function Signup({ navigation }) {
         setIsLoading(true)
         const formatedData = formDataGenerator(values)
         const data = await authEndPointsHandler('agent/user/signin', formatedData, setError, setIsLoading)
+        console.log(data)
         if (data.access_token) {
             await AsyncStorage.setItem("access_token", data?.access_token)
             await AsyncStorage.setItem("token_type", data?.token_type)
@@ -32,6 +33,12 @@ function Signup({ navigation }) {
         }
         if (data?.message == 'Unauthorized') {
             setError(data?.message)
+            setTimeout(() => {
+                setError(null)
+            }, 2000)
+        }
+        if (data?.password?.length > 0) {
+            setError(data?.password[0])
             setTimeout(() => {
                 setError(null)
             }, 2000)

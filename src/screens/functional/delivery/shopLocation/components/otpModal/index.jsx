@@ -11,7 +11,6 @@ const SendOTPModal = ({ onPress = () => { }, handleClearOTP = () => { }, orderId
             transparent={true}
             visible={otpModal}
             onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
                 setOtpModal(prev => !prev);
             }}>
             <View style={styles.centeredView}>

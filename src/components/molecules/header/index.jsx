@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Platform, TouchableWithoutFeedback, Pressable } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import styles from './style'
 import { Avatar, Badge } from 'react-native-paper';
 import profile from '../../../assets/images/chris.jpg'
@@ -9,6 +9,7 @@ import { Appbar } from 'react-native-paper';
 import { colors } from '../../../constants/globalStyles';
 import { fetchData } from '../../../api/functional/fetchData';
 import { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Header = ({ navigation, profile = false, backButton = false, title = "", bellIcon = false, color = "", textColor = "#000", bgColor = "#fff", bellIconColor = "#000", backButtonColor = "#fff" }) => {
     const [error, setError] = useState(null)
@@ -20,9 +21,11 @@ const Header = ({ navigation, profile = false, backButton = false, title = "", b
             setCount(data?.data?.data?.length)
         }
     }
-    useEffect(() => {
-        getOrdersCount()
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            getOrdersCount()
+        }, [])
+    )
     return (
         <View style={styles.header(bgColor)}>
             {

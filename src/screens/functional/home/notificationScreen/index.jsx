@@ -9,17 +9,20 @@ import ResponseModal from '../../../../components/molecules/responseModal';
 import { postData } from '../../../../api/functional/postData';
 import { RefreshControl } from 'react-native-gesture-handler';
 import NoDataFound from '../../../../components/molecules/noDataFound';
+import StatusBarComponent from '../../../../components/atoms/statusBar';
+import SuccessOrderAcceptedModal from './components/successOrderAcceptedModal';
 
 const NotificationScreen = ({ navigation }) => {
     const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [orders, setOrders] = useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const [modalTitle, setModalTitle] = useState("")
     const [modalDescription, setModalDescription] = useState("")
     const [orderId, setorderId] = useState(null)
     const [refreshing, setRefreshing] = useState(false)
-    const [targetOrder, setTargetOrder] = useState(null)
+    const [targetOrder, setTargetOrder] = useState({})
+    const [successModalShow, setSuccessModalShow] = useState(false)
     const getOrders = async () => {
         setIsLoading(true)
         const data = await fetchData('agent/orders/unassigned', setError, setIsLoading)
@@ -44,12 +47,13 @@ const NotificationScreen = ({ navigation }) => {
         const formData = new FormData()
         formData.append('UOID', orderId)
         const data = await postData('agent/orders/accept', formData, setError, setIsLoading)
-        if (data?.result?.data == 1) {
-            navigation.navigate("shopLocation", { order: targetOrder })
+        if (data?.result?.status == 1) {
+            setSuccessModalShow(true)
         }
     }
     return (
         <View style={styles.container}>
+            <StatusBarComponent />
             <Header navigation={navigation} title='Notificatios' backButton={true} backButtonColor='#000' />
             {
                 orders?.length !== 0 ?
@@ -68,7 +72,8 @@ const NotificationScreen = ({ navigation }) => {
                     <AppLoader />
                 )
             }
-            <ResponseModal acceptOrderProcess={acceptOrderProcess} modalTitle={modalTitle} modalDescription={modalDescription} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <ResponseModal setSuccessModalShow={setSuccessModalShow} acceptOrderProcess={acceptOrderProcess} modalTitle={modalTitle} modalDescription={modalDescription} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            <SuccessOrderAcceptedModal navigation={navigation} successModalShow={successModalShow} setSuccessModalShow={setSuccessModalShow} />
         </View>
     );
 };
