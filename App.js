@@ -11,11 +11,13 @@ import { Alert } from 'react-native';
 import { postData } from './src/api/functional/postData';
 import { ToastAndroid } from 'react-native';
 import ToastBar from './src/components/molecules/toastBar';
+import SplashAppScreen from './splashAppScreen';
 export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
 
   async function requestUserPermission() {
@@ -89,7 +91,57 @@ export default function App() {
   }, []);
 
 
+  useEffect(() => {
+    if (requestUserPermission()) {
+      messaging().getToken().then(async (token) => {
+        const formData = new FormData()
+        formData.append('fcm', token)
+        const data = await postData('seller/user/updateFCM', formData, setError, setIsLoading)
+      });
+    } else {
+      alert("notification permission declined")
+    }
 
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log(
+        'Notification caused app to open from background state:',
+        remoteMessage.notification, 'yes sir'
+      );
+    });
+
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:',
+            remoteMessage.notification,
+          );
+        }
+      });
+
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
+
+
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      Alert.alert(remoteMessage.data.title, remoteMessage.data.message);
+      console.log(remoteMessage)
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+  if (loading) {
+    return <SplashAppScreen />;
+  }
   return (
     <Provider store={store}>
       <PaperProfider>

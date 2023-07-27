@@ -4,10 +4,10 @@
     "slug": "Darawal",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/darawal.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/darawal.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -31,7 +31,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/darawal.png"
+      "favicon": "./assets/logo.png"
     },
     "extra": {
       "eas": {
