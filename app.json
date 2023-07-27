@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "darawal",
-    "slug": "darawal",
+    "name": "Darawal",
+    "slug": "Darawal",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/darawal.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/darawal.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -31,11 +31,11 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/darawal.png"
     },
     "extra": {
       "eas": {
-        "projectId": "af1f6bf2-c542-4318-b32f-1a8129823bc8"
+        "projectId": "7be27db9-b9a9-439e-90cc-b63347bc5564"
       }
     }
   }

@@ -51,6 +51,8 @@ const NotificationScreen = ({ navigation }) => {
             setSuccessModalShow(true)
         }
     }
+    
+
     return (
         <View style={styles.container}>
             <StatusBarComponent />
