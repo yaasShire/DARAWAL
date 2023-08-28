@@ -24,12 +24,17 @@ function Signup({ navigation }) {
         setIsLoading(true)
         const formatedData = formDataGenerator(values)
         const data = await authEndPointsHandler('agent/user/signin', formatedData, setError, setIsLoading)
-        console.log(data)
         if (data.access_token) {
             await AsyncStorage.setItem("access_token", data?.access_token)
             await AsyncStorage.setItem("token_type", data?.token_type)
             await AsyncStorage.setItem("user", JSON.stringify(data?.user))
             navigation.replace("bottomTabs")
+        }
+        if (data?.message == "Contact admin to grant access ") {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'pending' }],
+            });
         }
         if (data?.message == 'Unauthorized') {
             setError(data?.message)

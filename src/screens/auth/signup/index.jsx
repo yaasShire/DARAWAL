@@ -21,15 +21,24 @@ function Signup({ navigation }) {
         setIsLoading(true)
         const formatedData = formDataGenerator(values)
         const data = await authEndPointsHandler('agent/user/signup', formatedData, setError, setIsLoading)
-        console.log(data)
         if (data?.phone_number) {
             setError(data?.phone_number[0])
             setTimeout(() => {
                 setError(null)
             }, 2000)
         }
+        if (data?.password) {
+            setError(data?.password[0])
+            setTimeout(() => {
+                setError(null)
+            }, 2000)
+        }
         if (data?.status == 'account created') {
-            setVerificationMessage(data?.message)
+            // setVerificationMessage(data?.message)
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'pending' }],
+            });
         }
         if (data?.email) {
             setError(data?.email[0])

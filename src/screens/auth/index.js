@@ -6,6 +6,7 @@ import Login from './login'
 import OTP from './otp'
 import Signup from './signup'
 import ResetPassword from './resetPassword'
+import Pending from './pending'
 const AuthStack = () => {
     const Stack = createNativeStackNavigator()
     return (
@@ -13,6 +14,7 @@ const AuthStack = () => {
             <Stack.Screen name='onBoarding' component={OnBoardingIntro} />
             <Stack.Screen name='login' component={Login} />
             <Stack.Screen name='signup' component={Signup} />
+            <Stack.Screen name='pending' component={Pending} />
             <Stack.Screen name='otp' component={OTP} />
             <Stack.Screen name='resetpassword' component={ResetPassword} />
         </Stack.Navigator>

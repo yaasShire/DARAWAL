@@ -18,27 +18,26 @@ const OnGoing = ({ setIsLoading = () => { }, setError = () => { }, isLoading = t
         getOnGoingOrders()
     }, [])
     return (
-        <>
-            <FlatList
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getOnGoingOrders} />}
-                showsVerticalScrollIndicator={false}
-                style={styles.container}
-                data={ongoingOrders}
-                renderItem={({ item }) => (
-                    <OrderCard accept={false} order={item} navigation={navigation} navigateMap />
-                )}
+        <View style={{ flex: 1 }}>
+            {
+                !ongoingOrders.length ? <NoDataFound /> :
+                    <FlatList
+                        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getOnGoingOrders} />}
+                        showsVerticalScrollIndicator={false}
+                        style={styles.container}
+                        data={ongoingOrders}
+                        renderItem={({ item }) => (
+                            <OrderCard accept={false} order={item} navigation={navigation} navigateMap />
+                        )}
 
-            />
+                    />
+            }
             {
                 isLoading && (
                     <AppLoader />
                 )
             }
-            {
-                !ongoingOrders.length && <NoDataFound />
-            }
-
-        </>
+        </View>
     )
 }
 
