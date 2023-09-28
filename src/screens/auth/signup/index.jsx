@@ -11,8 +11,6 @@ import AuthenticationButton from '../../../components/atoms/authenticationButton
 import VerificationMessage from './components/success';
 import AppLoader from '../../../components/atoms/appLoader';
 function Signup({ navigation }) {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -21,6 +19,9 @@ function Signup({ navigation }) {
         setIsLoading(true)
         const formatedData = formDataGenerator(values)
         const data = await authEndPointsHandler('agent/user/signup', formatedData, setError, setIsLoading)
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
         if (data?.phone_number) {
             setError(data?.phone_number[0])
             setTimeout(() => {
@@ -71,7 +72,7 @@ function Signup({ navigation }) {
                     }
                     <Formik
                         validationSchema={signupValidationSchema}
-                        initialValues={{ name: "", phone_number: "", city: "", email: "", password: "", confirmPassword: "" }}
+                        initialValues={{ name: "", phone_number: "", city: "", email: "", password: "", confirmPassword: "", accountNo: "", accountType: "", accountHolder: "" }}
                         onSubmit={(values) => { handleSignUp(values) }}
                     >
                         {
@@ -81,6 +82,9 @@ function Signup({ navigation }) {
                                     <AuthTextField keyboardType='number-pad' name="phone_number" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} placeholder="Phone Number" />
                                     <AuthTextField name="city" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} placeholder="City" />
                                     <AuthTextField keyboardType='email-address' name="email" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} placeholder="Email" />
+                                    <AuthTextField keyboardType='number-pad' name="accountNo" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} placeholder="Account Number" />
+                                    <AuthTextField keyboardType='default' name="accountType" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} placeholder="Account Type" />
+                                    <AuthTextField keyboardType='default' name="accountHolder" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} placeholder="Account Holder" />
                                     <AuthTextField name="password" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} secureTextEntry={true} placeholder="Password" />
                                     <AuthTextField name="confirmPassword" errors={errors} touched={touched} setFieldTouched={setFieldTouched} handleBlur={handleBlur} handleChange={handleChange} values={values} secureTextEntry={true} placeholder="Confirm Password" />
                                     <AuthenticationButton title='Sign up' errors={errors} handleSubmit={() => { handleSubmit(values) }} />
