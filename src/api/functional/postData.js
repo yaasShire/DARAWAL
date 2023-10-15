@@ -7,7 +7,7 @@ export const postData = async (endPoint, payload, setError, setIsLoading) => {
     const token_type = await AsyncStorage.getItem("token_type")
     try {
         if (access_token && token_type) {
-            const data = await fetch(`https://www.sweyn.co.uk/v1/${endPoint}`, {
+            const data = await fetch(`https://api.elabis.app/v1/${endPoint}`, {
                 method: 'POST',
                 body: payload,
                 headers: {

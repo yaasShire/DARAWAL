@@ -5,7 +5,7 @@ export const fetchData = async (endPoint, setError, setIsLoading) => {
     const token_type = await AsyncStorage.getItem("token_type")
     try {
         if (access_token && token_type) {
-            const result = await fetch(`https://www.sweyn.co.uk/v1/${endPoint}`, {
+            const result = await fetch(`https://api.elabis.app/v1/${endPoint}`, {
                 // method: "GET",
                 headers: new Headers({
                     'Authorization': `${token_type} ${access_token}`,

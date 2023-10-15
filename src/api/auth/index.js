@@ -2,7 +2,7 @@
 import { useState } from 'react'
 export const authEndPointsHandler = async (endpoint, payload, setError, setIsLoading) => {
     try {
-        const response = await fetch(`https://sweyn.co.uk/v1/${endpoint}`, {
+        const response = await fetch(`https://api.elabis.app/v1/${endpoint}`, {
             method: "post",
             headers: {
                 'Content-Type': 'multipart/form-data'

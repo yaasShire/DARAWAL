@@ -18,7 +18,7 @@ const CompletedOrders = ({ setIsLoading = () => { }, setError = () => { }, isLoa
         completedOrders()
     }, [])
     return (
-        <>
+        <View style={{ flex: 1 }}>
             <FlatList
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={completedOrders} />}
                 showsVerticalScrollIndicator={false}
@@ -36,7 +36,7 @@ const CompletedOrders = ({ setIsLoading = () => { }, setError = () => { }, isLoa
             {
                 !completedOrder.length && <NoDataFound />
             }
-        </>
+        </View>
     )
 }
 

@@ -63,7 +63,10 @@ function Signup({ navigation }) {
                     <Text style={styles.appName}>Darawal</Text>
                     <Text style={styles.appDescription}>Welcom to Darawal we appreciate to have you</Text>
                 </View> */}
-                    <Text style={styles.title}>Login</Text>
+                    <View style={{ marginBottom: 20 }}>
+                        <Text style={styles.title}>WELCOME TO DARAWAL</Text>
+                        <Text style={{ color: colors.tertiary, fontSize: 16, fontWeight: "400" }}>ACCESS YOUR ACCOUNT EASILY BY LOGIN</Text>
+                    </View>
                     {
                         error && (
                             <View style={styles.errorWrapper}>
@@ -111,7 +114,7 @@ function Signup({ navigation }) {
 
                 </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
 
@@ -123,7 +126,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
         fontWeight: 'bold',
-        marginBottom: 32,
+        // marginBottom: 32,
+        textAlign: "center"
     },
     form: {
         width: '100%',

@@ -36,7 +36,7 @@ const ShopLocation = ({ navigation, route }) => {
     const bottomSheet = useRef()
     const ORIGIN = { latitude: 37.78825, longitude: -122.4324 };
     const DESTINATION = { latitude: 37.7749, longitude: -122.4194 };
-    const API_KEY = 'AIzaSyCsJ_JBbomxUgMeWecFqNcOEk2g60NfKow';
+    const API_KEY = 'AIzaSyCm1NrKo7E44lu9k_hqjKqyu2QlhiCK38E';
     const [region, setRegion] = useState({
         latitude: 2.046934,
         longitude: 45.318161,

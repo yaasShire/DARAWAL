@@ -2,10 +2,9 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../../constants/globalStyles";
 export default StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        height: "100%"
+        height: "100%",
     },
     image: {
         resizeMode: "center",
