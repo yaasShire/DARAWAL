@@ -17,11 +17,11 @@ const Pending = ({ navigation }) => {
             <View style={styles.contactsWrapper}>
                 <ContactCard icon='wechat' title='Message' onPress={() => {
                     Linking.openURL(
-                        'http://api.whatsapp.com/send?phone=252' + "612518368"
+                        'http://api.whatsapp.com/send?phone=252' + "770834137"
                     )
                 }} />
                 <ContactCard icon='phone' title='Call' onPress={() => {
-                    Linking.openURL(`tel:612518368`)
+                    Linking.openURL(`tel:770834137`)
                 }} />
             </View>
             <View style={styles.loginBtnWrapper}>

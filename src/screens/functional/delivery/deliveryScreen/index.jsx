@@ -60,11 +60,11 @@ const Delivery = ({ navigation, route }) => {
             {
                 OrdersMap.get(targetTab)
             }
-            {
+            {/* {
                 isLoading && (
                     <AppLoader />
                 )
-            }
+            } */}
         </View>
     )
 }

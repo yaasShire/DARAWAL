@@ -61,15 +61,15 @@ const Settings = ({ navigation }) => {
                                 <Text style={styles.sectionActionTitle}>Privacy & Help center</Text>
                             </View>
                             <View style={styles.actionsGroupWrapper}>
-                                <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('privacy')}>
+                                {/* <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('privacy')}>
                                     <View style={styles.iconNameWrapper}>
                                         <MaterialIcons name='privacy-tip' size={25} />
                                         <Text style={styles.actionName}>Privacy & Policy</Text>
                                     </View>
                                     <Entypo name='chevron-right' size={25} style={styles.chevronIcon} />
 
-                                </TouchableOpacity>
-                                <Divider />
+                                </TouchableOpacity> */}
+                                {/* <Divider /> */}
                                 <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('helpCenter')}>
                                     <View style={styles.iconNameWrapper}>
                                         <Feather name='help-circle' size={25} />

@@ -53,19 +53,19 @@ const HelpCenter = ({ navigation }) => {
                 <View style={styles.cardsHolder}>
                     <TouchableOpacity style={styles.card} onPress={() => {
                         Linking.openURL(
-                            'http://api.whatsapp.com/send?phone=252' + "612518368"
+                            'http://api.whatsapp.com/send?phone=252' + "770834137"
                         );
                     }}>
                         <Image source={Whatsapp} style={styles.emailIcon} />
                         <Text>Chat with us</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.card} onPress={() => {
-                        Linking.openURL(`tel:612518368`)
+                        Linking.openURL(`tel:770834137`)
                     }}>
                         <Image source={phone} style={styles.emailIcon} />
                         <View style={styles.textCallUsHolder}>
                             <Text style={styles.text}>Call Us</Text>
-                            <Text style={styles.text}>0612636436</Text>
+                            <Text style={styles.text}>770834137</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

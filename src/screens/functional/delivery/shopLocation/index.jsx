@@ -83,7 +83,6 @@ const ShopLocation = ({ navigation, route }) => {
     useEffect(() => {
         const getOrigin = async () => {
             const originCoordinate = JSON.parse(await AsyncStorage.getItem("current_location"))
-            console.log(originCoordinate)
             setOrigin({
                 latitude: originCoordinate?.latitude,
                 longitude: originCoordinate?.longitude,
@@ -113,6 +112,7 @@ const ShopLocation = ({ navigation, route }) => {
         const deliveryData = new FormData()
         deliveryData.append('UOID', route?.params?.order?.order_details?.UOID)
         const { result } = await postData('agent/orders/sendotp', deliveryData, setError, setIsLoading)
+        console.log(result)
         if (result?.data == 'OTP generated successfully') {
             setVerifyOtp(true)
             setOtpModal(false)
@@ -120,7 +120,9 @@ const ShopLocation = ({ navigation, route }) => {
 
         }
     }
-    // console.log(route.params)
+
+    // console.log(route.params.order.order_details)
+
     return (
         <View style={styles.container}>
             <StatusBarComponent barStyle={'default'} />
@@ -225,7 +227,7 @@ const ShopLocation = ({ navigation, route }) => {
                         <View style={styles.customerInfoWrapper}>
                             <View style={styles.nameImageWrapper}>
                                 <View style={styles.imageWrapper}>
-                                    <Image source={{ uri: `https://sweyn.co.uk/storage/images/shops/${pickupData?.photos}` }} style={styles.image} />
+                                    <Image source={{ uri: `https://api.elabis.app/storage/images/shops/${pickupData?.photos}` }} style={styles.image} />
                                 </View>
                                 <Text style={styles.name}>{route?.params?.order?.buyer_details[0]?.name}</Text>
                             </View>

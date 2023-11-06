@@ -13,7 +13,7 @@ const OrderCard = ({ order, onAccept, onReject, phone, distance, setModalVisible
     const orderId = order?.order_details?.UOID?.split('-')[order?.order_details?.UOID?.split('-').length - 1]
     return (
         <View style={styles.card}>
-            <Image style={styles.shopImage} source={{ uri: `https://sweyn.co.uk/storage/images/shops/${order?.shop_location?.photos}` }} />
+            <Image style={styles.shopImage} source={{ uri: `https://api.elabis.app/storage/images/shops/${order?.shop_location?.photos}` }} />
             <Text style={styles.shopName}>{order?.shop_location?.name}</Text>
             <Text style={styles.id}>Order Id #{orderId}</Text>
             <View style={styles.addressContainer}>
