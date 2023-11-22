@@ -47,11 +47,15 @@ const NotificationScreen = ({ navigation }) => {
         const formData = new FormData()
         formData.append('UOID', orderId)
         const data = await postData('agent/orders/accept', formData, setError, setIsLoading)
+        console.log(data)
+        if (data?.result?.message) {
+            setSuccessModalShow(true)
+        }
         if (data?.result?.status == 1) {
             setSuccessModalShow(true)
         }
     }
-    
+
 
     return (
         <View style={styles.container}>

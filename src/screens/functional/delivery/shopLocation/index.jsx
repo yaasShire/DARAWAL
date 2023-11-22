@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StatusBar, Platform, Button, TouchableOpacity, Image, Dimensions, StyleSheet, Linking, Pressable } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -36,7 +36,7 @@ const ShopLocation = ({ navigation, route }) => {
     const bottomSheet = useRef()
     const ORIGIN = { latitude: 37.78825, longitude: -122.4324 };
     const DESTINATION = { latitude: 37.7749, longitude: -122.4194 };
-    const API_KEY = 'AIzaSyCm1NrKo7E44lu9k_hqjKqyu2QlhiCK38E';
+    const API_KEY = 'AIzaSyCsJ_JBbomxUgMeWecFqNcOEk2g60NfKow';
     const [region, setRegion] = useState({
         latitude: 2.046934,
         longitude: 45.318161,
@@ -121,12 +121,16 @@ const ShopLocation = ({ navigation, route }) => {
         }
     }
 
-    // console.log(route.params.order.order_details)
 
     return (
         <View style={styles.container}>
             <StatusBarComponent barStyle={'default'} />
-            <MapView style={styles.map} region={region}>
+            <MapView
+                style={styles.map}
+                region={region}
+                key={"AIzaSyCsJ_JBbomxUgMeWecFqNcOEk2g60NfKow"}
+                provider={PROVIDER_GOOGLE}
+            >
                 <Marker coordinate={origin} pinColor="blue" />
                 <Marker coordinate={destination} pinColor="red" />
                 {

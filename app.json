@@ -15,8 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.darawal.mechanic"
+      "supportsTablet": true
     },
     "android": {
       "package": "com.darawal.mechanic",
