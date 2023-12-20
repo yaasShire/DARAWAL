@@ -17,6 +17,7 @@ import { postData } from '../../../../api/functional/postData';
 import VerifyOtpModal from './components/verifyOtpModal';
 import SendOTPModal from './components/otpModal';
 import StatusBarComponent from '../../../../components/atoms/statusBar';
+import * as Location from 'expo-location';
 
 const ShopLocation = ({ navigation, route }) => {
     const [showGoAnimation, setShowGoAnimation] = useState(false)
@@ -27,6 +28,11 @@ const ShopLocation = ({ navigation, route }) => {
     const [destination, setDestination] = useState({ latitude: 9.7866, longitude: 49.3653 })
     const [driveToShop, setDriveToShop] = useState(true)
     const [pickupData, setPickupData] = useState({})
+    const [location, setLocation] = useState({
+        latitude: 2.046934,
+        longitude: 45.318161,
+    });
+    const [errorMsg, setErrorMsg] = useState(null);
     const [dropData, setDropData] = useState({})
     const [showStartTripToCustomer, setShowStartTripToCustomer] = useState(false)
     const [error, setError] = useState(null)
@@ -36,7 +42,7 @@ const ShopLocation = ({ navigation, route }) => {
     const bottomSheet = useRef()
     const ORIGIN = { latitude: 37.78825, longitude: -122.4324 };
     const DESTINATION = { latitude: 37.7749, longitude: -122.4194 };
-    const API_KEY = 'AIzaSyCsJ_JBbomxUgMeWecFqNcOEk2g60NfKow';
+    const API_KEY = 'AIzaSyA47XXKuNkOS0Z6m0RdyKsRgw9ydRr35ww';
     const [region, setRegion] = useState({
         latitude: 2.046934,
         longitude: 45.318161,
@@ -121,6 +127,25 @@ const ShopLocation = ({ navigation, route }) => {
         }
     }
 
+    useEffect(() => {
+        (async () => {
+
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            let locationn = await Location.getCurrentPositionAsync({});
+            setLocation({
+                latitude: locationn.coords.latitude,
+                longitude: locationn.coords.longitude
+            });
+        })();
+    }, []);
+    console.log('====================================');
+    console.log(route?.params?.order?.order_details?.UOID);
+    console.log('====================================');
 
     return (
         <View style={styles.container}>
@@ -128,15 +153,15 @@ const ShopLocation = ({ navigation, route }) => {
             <MapView
                 style={styles.map}
                 region={region}
-                key={"AIzaSyCsJ_JBbomxUgMeWecFqNcOEk2g60NfKow"}
+                key={"AIzaSyA47XXKuNkOS0Z6m0RdyKsRgw9ydRr35ww"}
                 provider={PROVIDER_GOOGLE}
             >
-                <Marker coordinate={origin} pinColor="blue" />
+                <Marker coordinate={location} pinColor="blue" />
                 <Marker coordinate={destination} pinColor="red" />
                 {
                     (route?.params?.order?.order_details?.status == 3 || route?.params?.order?.order_details?.status == 4) && (
                         <MapViewDirections
-                            origin={origin}
+                            origin={location}
                             destination={destination}
                             apikey={API_KEY}
                             strokeWidth={3}
@@ -250,7 +275,6 @@ const ShopLocation = ({ navigation, route }) => {
                                     : <CustomButton color={colors.statusCard} onPress={changeMapDirection} navigation={navigation} data={{}} label={"Start"} bottomSheet={bottomSheet} setShowGoAnimation={setShowGoAnimation} />
                             }
                         </View>
-
                     </LinearGradient>
 
                 </View>

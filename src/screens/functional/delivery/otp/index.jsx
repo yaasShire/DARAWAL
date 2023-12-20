@@ -5,8 +5,10 @@ import SuccessOTPModal from './components/successModalOTP';
 import StatusBarComponent from '../../../../components/atoms/statusBar';
 // import SuccessOTPModal from './components/successModal';
 
+
+
 const OTP = ({ route, navigation }) => {
-    const [otp, setOTP] = useState('');
+    const [otp, setOTP] = useState('')
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [otpResponseModal, setOtpResponseModal] = useState(false)
@@ -60,7 +62,7 @@ const OTP = ({ route, navigation }) => {
         <View style={styles.container}>
             <StatusBarComponent />
             <Text style={styles.title}>Enter OTP</Text>
-            <Text style={styles.subtitle}>Please enter the 4-digit code sent to your phone.</Text>
+            <Text style={styles.subtitle}>Please enter the 6-digit code sent to your phone.</Text>
             <View style={styles.inputContainer}>
                 <TextInput
                     ref={inputRef1}

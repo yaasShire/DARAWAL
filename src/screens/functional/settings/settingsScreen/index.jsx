@@ -19,6 +19,8 @@ import { fetchData } from '../../../../api/functional/fetchData.js'
 import AppLoader from '../../../../components/atoms/appLoader/index.jsx'
 import { RefreshControl } from 'react-native-gesture-handler'
 import StatusBarComponent from '../../../../components/atoms/statusBar/index.jsx'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import RemoveAccountModal from '../components/removeAccountModel/index.jsx'
 const Settings = ({ navigation }) => {
     const [visible, setVisible] = React.useState(false);
     const showModal = () => setVisible(true);
@@ -28,6 +30,7 @@ const Settings = ({ navigation }) => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
+    const [showRemoveAccount, setShowRemoveAccount] = useState(false)
     const logout = async () => {
         await AsyncStorage.setItem("access_token", "")
         await AsyncStorage.setItem("token_type", "")
@@ -46,6 +49,30 @@ const Settings = ({ navigation }) => {
     useEffect(() => {
         getUserData()
     }, [])
+
+    const removeAccount = async () => {
+        const { data } = await fetchData("agent/user/delete", setError, setIsLoading)
+        const message = "Please wait untill existing orders are delivered , once your orders are delivered you can delete your account"
+        const messageSuccess = "Your account deleted successfully"
+        if (data?.message == message) {
+            setShowRemoveAccount(false)
+            alert(message)
+            navigation.replace("authStack", { screen: "login" })
+        }
+
+        if (data?.message == messageSuccess) {
+            setShowRemoveAccount(false)
+            alert(messageSuccess)
+            logout()
+            navigation.replace("authStack", { screen: "login" })
+            // navigation.reset({
+            //     index: 0,
+            //     routes: [{ name: 'initial', screen: { name: "login" } }],
+            // });
+
+        }
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBarComponent />
@@ -79,6 +106,10 @@ const Settings = ({ navigation }) => {
                                 </TouchableOpacity>
                             </View>
                         </View>
+                        <TouchableOpacity onPress={() => { setShowRemoveAccount(true) }} style={styles.logOutSectionWrapper}>
+                            <MaterialCommunityIcons name='account-remove' size={25} color={"red"} />
+                            <Text style={styles.logOutText}>Remove Account</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => { setVisible(true) }} style={styles.logOutSectionWrapper}>
                             <AntiDesign name='logout' size={25} color={"red"} />
                             <Text style={styles.logOutText}>Log out</Text>
@@ -86,10 +117,8 @@ const Settings = ({ navigation }) => {
                     </ScrollView>
                 </View>
                 <LogOutModal logout={logout} visible={visible} setVisible={setVisible} navigation={navigation} />
+                <RemoveAccountModal onPress={removeAccount} showRemoveAccount={showRemoveAccount} setShowRemoveAccount={setShowRemoveAccount} navigation={navigation} />
                 <EditProfileDataModal getUserData={getUserData} userData={userData} editProfile={editProfile} setEditProfile={setEditProfile} />
-                {
-
-                }
                 {
                     isLoading && <AppLoader />
                 }

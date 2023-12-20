@@ -11,6 +11,6 @@ export default StyleSheet.create({
     onlineText: {
         fontSize: fontSizes.tertiary,
         fontWeight: fontWeights.tertiary,
-        color: colors.primary
+        color: colors.tertiary
     },
 })
